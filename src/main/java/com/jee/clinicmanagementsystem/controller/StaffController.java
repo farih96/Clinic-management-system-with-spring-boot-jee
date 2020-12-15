@@ -3,12 +3,16 @@ package com.jee.clinicmanagementsystem.controller;
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @Controller
@@ -51,6 +55,16 @@ public class StaffController {
     public String admin_index() {
         return "admin/admin_index";
     }
+
+    @GetMapping("/login")
+    public String loginpage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if ( authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+        return "redirect:/";
+    }
+
     /*
     @GetMapping("/userindex")
     public String user() {
