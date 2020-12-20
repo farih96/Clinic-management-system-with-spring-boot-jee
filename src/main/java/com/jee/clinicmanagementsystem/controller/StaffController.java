@@ -5,6 +5,7 @@ import com.jee.clinicmanagementsystem.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,39 @@ import java.util.List;
 
 @Controller
 public class StaffController {
+
     @Autowired
     private StaffService staffService;
 
+    @GetMapping("/")
+    public String homePage(Authentication authentication){
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken){
+            return "redirect:/login";
+        }
+        else{
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+                return "redirect:/admin/";
+            } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_GP"))) {
+                return "redirect:/gp/";
+            } else  {
+                return "redirect:/med/";
+            }
+        }
+
+
+    }
+
+    @GetMapping("/login")
+    public String loginPage(Authentication authentication) {
+
+        if ( authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+
+        return "redirect:/";
+
+    }
+/*
     @GetMapping("/")
     public String home() {
         return "index";
@@ -49,7 +80,7 @@ public class StaffController {
     }
     @GetMapping("/userindex")
     public String userindex() {
-        return "user/user_index";
+        return "gp/index";
     }
     @GetMapping("/adminindex")
     public String admin_index() {
@@ -65,12 +96,12 @@ public class StaffController {
         return "redirect:/";
     }
 
-    /*
-    @GetMapping("/userindex")
-    public String user() {
-        return "user_index";
-    }
 
+    @GetMapping("/test")
+    public String user() {
+        return "admin/index";
+    }
+/*
     @GetMapping("/admin")
     public String admin() {
         return ("<h1>Welcome Admin</h1>");
