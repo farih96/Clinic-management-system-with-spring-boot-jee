@@ -22,5 +22,8 @@ public class StaffService {
     public List<Staff> getAllStaff() {
         return staffRepository.findAll();
     }
+    public Staff findStaffById(Long id) {
+        return staffRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    }
 
 }
