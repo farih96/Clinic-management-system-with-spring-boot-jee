@@ -4,7 +4,6 @@ import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,8 +51,9 @@ public class AdminController {
 
     @PostMapping("/editstaff")
     public String processUpdateForm(Staff staff) {
-
-        return "admin/edit_staff";
+    	
+        staffService.updateStaff(staff);
+        return "redirect:/admin/";
     }
 
 }
