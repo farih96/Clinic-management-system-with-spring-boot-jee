@@ -2,7 +2,11 @@ package com.jee.clinicmanagementsystem.controller;
 
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.StaffService;
+import com.sun.el.stream.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,20 +21,28 @@ public class AdminController {
 
     @Autowired
     private StaffService staffService;
+    
+    public void loggedUser(Model model) {
+    	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String email = loggedInUser.getName(); 
+	    Staff staff = staffService.findStaffByEmail(email);
+	    model.addAttribute("staffinfo", staff);
+    }
 
     @GetMapping("/")
-    public String adminHome() {
-        System.out.println("adminhomepage");
+    public String adminHome(Model model) {
+    	loggedUser(model);
         return "admin/index";
     }
     @GetMapping("/admintest")
-    public String adminTest() {
-        System.out.println("adminhomepage");
+    public String adminTest(Model model) {
+    	loggedUser(model);
         return "users";
     }
     @GetMapping("/addstaff")
     public String addStaffForm(Model model) {
         model.addAttribute("staff", new Staff());
+        loggedUser(model);
         return "admin/add_staff";
     }
 
@@ -46,6 +58,7 @@ public class AdminController {
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Staff staff  = staffService.findStaffById(id);
         model.addAttribute("staff", staff);
+        loggedUser(model);
         return "admin/edit_staff";
     }
 
