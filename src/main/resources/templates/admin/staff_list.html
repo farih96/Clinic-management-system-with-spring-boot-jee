@@ -1,24 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="https://www.thymeleaf.org">
-
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
-    <title>Preclinic - Modifier un employé</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
-    <link rel="stylesheet" th:href="@{/css/style.css}" >
-    <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+<meta charset="ISO-8859-1">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+ <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+ <title>Preclinic - Liste des employ�s</title>
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+ <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+ <link rel="stylesheet" th:href="@{/css/style.css}" >
+ <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
+ <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
 
 </head>
-<!--/*@thymesVar id="staff" type="com.jee.clinicmanagementsystem.entity.Staff"*/-->
 <body>
+
 <div class="main-wrapper">
     <div class="header">
         <div class="header-left">
@@ -134,83 +130,38 @@
     <div th:replace="/includes/admin_side_menu :: admin_side_menu"> </div>
     <div class="page-wrapper">
         <div class="content">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <h4 class="page-title">Employé à modifier <p th:text="${staff.id}"></p></h4>
-                </div>
-            </div>
-           <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <form method="POST" th:action="@{/admin/editstaff}" th:object="${staff}" >
-                        <div class="row">
-                          <input  th:field="${staff.id}" type="hidden" required>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Prénom :<span class="text-danger">*</span></label>
-                                    <input class="form-control" th:field="*{firstName}" type="text" required>
-                                  
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Nom :<span class="text-danger">*</span></label>
-                                    <input class="form-control"  th:field="*{lastName}" type="text" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Email :<span class="text-danger">*</span></label>
-                                    <input class="form-control" th:field="*{email}" type="email" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Password : <span class="text-danger">*</span></label>
-                                    <input class="form-control" th:field="*{password}" type="password" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Matricule :<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" th:field="*{matriculeNumber}" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Numero de téléphone :</label>
-                                    <input class="form-control" th:field="*{phoneNumber}" type="text" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Role</label>
-                                    <select class="select" th:field="*{role}">
-                                        <option th:value="'GP'">Gp</option>
-                                        <option th:value="'MED'">Medécin</option>
-                                        <option th:value="'ADMIN'">Admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="m-t-20 text-center">
-                            <button class="btn btn-primary submit-btn">Modifier</button>
-                            
-                        </div>
-                    </form>
-                    <a href="@{'/deletestaff/' +${staff.id}}" onclick="return confirm('Are you sure?')">Delete</a>
-                    
-                   
-                   <!-- <form method="POST" th:action="@{/admin/deletestaff/{id}}" th:object="${staff.id}" >
-                    	<div class="m-t-20 text-center">
-                            <button class="btn btn-primary submit-btn">Delete</button>
-                        </div>
-                    </form>  --> 
-                    
-                    
-                </div>
-            </div>
-        </div>
-        <div class="notification-box">
+		    <table border="1">
+		    	<thead>
+		    		<tr>
+		    			<th>Staff ID</th>
+		    			<th>Last name</th>
+		    			<th>First name</th>
+		    			<th>Matricule number</th>
+		    			<th>Email</th>
+		    			<th>Phone</th>
+		    			<th>Role</th>
+		    			<th>Action</th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+		    		<tr th:each="staff : ${listStaff}">
+		    			<td th:text= "${staff.id}"> </td>
+		    			<td th:text= "${staff.LastName}"> </td>
+		    			<td th:text= "${staff.FirstName}" > </td>
+		    			<td th:text= "${staff.MatriculeNumber}"> </td>
+		    			<td th:text= "${staff.Email}"> </td>
+		    			<td th:text= "${staff.PhoneNumber}" > </td>
+		    			<td th:text= "${staff.Role}"> </td>
+		    			<td > 
+		    				<a th:href="@{'admin/deletestaff/' + ${staff.id}}">Delete</a>
+		    			</td>
+		    		
+		    		</tr>
+		    	</tbody>
+		    
+		    </table>
+		    
+		    <div class="notification-box">
             <div class="msg-sidebar notifications msg-noti">
                 <div class="topnav-dropdown-header">
                     <span>Messages</span>
@@ -430,9 +381,6 @@
 <script th:src="@{/js/select2.min.js}"></script>
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
-
+		    
 </body>
-
-
-
 </html>

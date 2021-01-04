@@ -2,11 +2,15 @@ package com.jee.clinicmanagementsystem.controller;
 
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.StaffService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,14 @@ public class AdminController {
         System.out.println("adminhomepage");
         return "admin/index";
     }
+    
+    @RequestMapping("/liststaff")
+    public String staffList(Model model) {
+    	List<Staff> listStaff = staffService.getAllStaff();
+    	model.addAttribute("listStaff", listStaff);
+    	return"admin/staff_list";
+    }
+    
     @GetMapping("/admintest")
     public String adminTest() {
         System.out.println("adminhomepage");
@@ -52,8 +64,19 @@ public class AdminController {
 
     @PostMapping("/editstaff")
     public String processUpdateForm(Staff staff) {
-
-        return "admin/edit_staff";
+    	staffService.updateStaff(staff);
+    	
+    	return "redirect:/admin/";
+        
     }
+    
+     
+    @RequestMapping("/admin/deletestaff/{id}")
+    public String deleteStaff(@PathVariable("id") Long id) {
+    	 staffService.deletestaff(id);
+    	return "redirect:/admin/staff_list";
 
+    }
+    
+  
 }

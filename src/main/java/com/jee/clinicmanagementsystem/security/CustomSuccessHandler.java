@@ -30,7 +30,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 redirectUrl = "/admin/";
                 break;
-            }else{
+            }else if (grantedAuthority.getAuthority().equals("ROLE_MED")) {
                 redirectUrl = "/med/";
                 break;
             }
