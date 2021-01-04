@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+    <title>Preclinic - Modifier un patient</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+
+</head>
+<!--/*@thymesVar id="patient" type="com.jee.clinicmanagementsystem.entity.Patient"*/-->
+<body>
+<div class="main-wrapper">
+    <div th:replace="/includes/header :: header"> </div>
+    <!-- menu here -->
+    <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title">Patient à modifier</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <form th:action="@{/gp/editpatient}" th:object="${patient}" method="post">
+                        <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Prénom :<span class="text-danger">*</span></label>
+                                        <input class="form-control"  th:field="*{firstName}" type="text">
+                                          <input  th:field="*{id}" type="hidden" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Nom :<span class="text-danger">*</span></label>
+                                        <input class="form-control" th:field="*{lastName}" type="text">
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Email <span class="text-danger">*</span></label>
+                                        <input class="form-control" th:field="*{email}" type="email">
+                                    </div>
+                                </div>
+								<div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>date de naissance :<span class="text-danger">*</span></label>
+                                        <div class="cal-icon">
+                                            <input type="text"  id="dob" th:value="*{#dates.format(dateOfBirth, 'dd/MMM/yyyy')}" th:field="*{dateOfBirth}" class="form-control datetimepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+									<div class="form-group gender-select">
+										<label class="gen-label">Sexe:</label>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" th:field="*{sex}" class="form-check-input" value="Homme">Homme
+											</label>
+										</div>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" th:field="*{sex}" class="form-check-input" value="Femme">Femme
+											</label>
+										</div>
+									</div>
+                                </div>
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label>Address</label>
+												<input type="text" class="form-control " th:field="*{adress}">
+											</div>
+										</div>
+										
+									</div>
+								</div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Phone </label>
+                                        <input class="form-control" th:field="*{phoneNumber}" type="text">
+                                    </div>
+                                </div>
+                               
+                            </div>
+                          
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary submit-btn">Modifier</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/select2.min.js}"></script>
+<script th:src="@{/js/moment.min.js}"></script>
+<script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+	
+    var datea = [[${#dates.format(patient.dateOfBirth, 'dd/MM/yyyy')}]] ; 
+    $("#dob").val(datea);
+  
+});
+</script>
+</body>
+
+
+
+</html>

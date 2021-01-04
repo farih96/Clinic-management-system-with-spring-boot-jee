@@ -29,6 +29,7 @@ public class StaffService {
         return staffRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
     public Staff updateStaff(Staff staff) {
+
     	
     	Staff staffToUpdate = staffRepository.findById(staff.getId()).orElse(null);
     	if (staffToUpdate!= null ) {
@@ -57,5 +58,6 @@ public class StaffService {
     	
     	   }
     	
+
 
 }
