@@ -6,6 +6,8 @@ import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.PatientService;
 import com.jee.clinicmanagementsystem.service.StaffService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +41,13 @@ public class GpController {
         return "gp/index";
     }
     
+    @RequestMapping("/listpatients")
+    public String patientsList(Model model) {
+    	List<Patient> listPatients = patientService.getAllPatients();
+    	model.addAttribute("listPatients", listPatients);
+    	return"gp/patients_list";
+    }
+    
 
     @GetMapping("/addpatient")
     public String addPatientForm(Model model) {
@@ -67,6 +76,13 @@ public class GpController {
     	
     	patientService.updatePatient(patient);
         return "redirect:/gp/";
+    }
+    
+    @RequestMapping("/deletepatient/{id}")
+    public String deletePatient(@PathVariable("id") Long id) {
+    	 patientService.deletepatient(id);
+    	return "redirect:/gp/patients_list";
+
     }
 
 }

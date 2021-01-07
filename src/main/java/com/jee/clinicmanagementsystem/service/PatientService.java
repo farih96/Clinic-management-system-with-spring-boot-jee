@@ -1,9 +1,12 @@
 package com.jee.clinicmanagementsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jee.clinicmanagementsystem.entity.Patient;
+import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.repository.PatientRepository;
 
 @Service
@@ -18,6 +21,10 @@ public class PatientService {
 	 public Patient savePatient(Patient patient) {
 	        return patientRepository.save(patient);
 	  }
+	 
+	 public List<Patient> getAllPatients() {
+	        return patientRepository.findAll();
+	    }
 	 
 	 public Patient updatePatient(Patient patient) {
 	        Patient patientToUpdate =  patientRepository.findById(patient.getId()).orElse(null);
@@ -34,4 +41,10 @@ public class PatientService {
 	        }
 	        return patientToUpdate;
 	  }
+	 
+	 public void deletepatient(Long id) {
+	    	patientRepository.deleteById(id);
+	    	
+	    	   }
+	    	
 }
