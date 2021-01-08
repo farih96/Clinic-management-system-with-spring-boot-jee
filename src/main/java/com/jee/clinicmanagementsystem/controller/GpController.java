@@ -45,6 +45,7 @@ public class GpController {
     public String patientsList(Model model) {
     	List<Patient> listPatients = patientService.getAllPatients();
     	model.addAttribute("listPatients", listPatients);
+    	loggedUser(model);
     	return"gp/patients_list";
     }
     
@@ -81,7 +82,7 @@ public class GpController {
     @RequestMapping("/deletepatient/{id}")
     public String deletePatient(@PathVariable("id") Long id) {
     	 patientService.deletepatient(id);
-    	return "redirect:/gp/patients_list";
+    	return "redirect:/gp/";
 
     }
 

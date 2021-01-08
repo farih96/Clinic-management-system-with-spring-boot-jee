@@ -43,6 +43,7 @@ public class AdminController {
     public String staffList(Model model) {
     	List<Staff> listStaff = staffService.getAllStaff();
     	model.addAttribute("listStaff", listStaff);
+    	loggedUser(model);
     	return"admin/staff_list";
     }
     
@@ -84,10 +85,10 @@ public class AdminController {
     }
     
      
-    @RequestMapping("/admin/deletestaff/{id}")
+    @RequestMapping("/deletestaff/{id}")
     public String deleteStaff(@PathVariable("id") Long id) {
     	 staffService.deletestaff(id);
-    	return "redirect:/admin/staff_list";
+    	return "redirect:/admin/";
 
     }
     
