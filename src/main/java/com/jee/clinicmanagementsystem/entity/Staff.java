@@ -19,9 +19,11 @@ public class Staff {
     private String password;
     private String phoneNumber;
     private String role;
+    @Column(name = "department_id")
+    private Long departmentId;
     //add active;
 
-    public Staff(Long id, String lastName, String firstName, Long matriculeNumber, String email, String password, String phoneNumber, String role) {
+   /* public Staff(Long id, String lastName, String firstName, Long matriculeNumber, String email, String password, String phoneNumber, String role, Long departmentId) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -30,9 +32,22 @@ public class Staff {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.role = role;
-    }
+        this.departmentId = departmentId;
+    }*/
 
-    public Staff() {
+    public Staff(String lastName, String firstName, Long matriculeNumber, String email, String password,
+			String phoneNumber, String role) {
+		super();
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.matriculeNumber = matriculeNumber;
+		this.email = email;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.role = role;
+	}
+
+	public Staff() {
 
     }
 
@@ -99,4 +114,12 @@ public class Staff {
     public void setRole(String role) {
         this.role = role;
     }
+
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
 }

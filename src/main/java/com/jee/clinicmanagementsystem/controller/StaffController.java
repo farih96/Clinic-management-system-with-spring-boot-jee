@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
 
+
 @Controller
+
 public class StaffController {
 
     @Autowired
@@ -50,6 +53,8 @@ public class StaffController {
         return "redirect:/";
 
     }
+    
+    
 /*
     @GetMapping("/")
     public String home() {

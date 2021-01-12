@@ -1,6 +1,8 @@
 package com.jee.clinicmanagementsystem.service;
 
 import com.jee.clinicmanagementsystem.entity.Staff;
+import com.jee.clinicmanagementsystem.repository.DepartmentRepository;
+import com.jee.clinicmanagementsystem.repository.DoctorRepository;
 import com.jee.clinicmanagementsystem.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,7 @@ import java.util.List;
 public class StaffService {
     @Autowired
     private StaffRepository staffRepository;
+    private DepartmentRepository departmentRepository;
     
   
 
@@ -57,7 +60,17 @@ public class StaffService {
     	staffRepository.deleteById(id);
     	
     	   }
+    
+    public List<Staff> getAllDoctors() {
+        return staffRepository.getAlldoctors();
     	
+    }
 
+	public List<Staff> findDocByDepartmentId(Long id) {
+		return staffRepository.findDocByDepartmentId(id);
+	}
 
+	
+
+	
 }
