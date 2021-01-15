@@ -2,6 +2,7 @@ package com.jee.clinicmanagementsystem.controller;
 
 
 import com.jee.clinicmanagementsystem.entity.Patient;
+import com.jee.clinicmanagementsystem.entity.Rdv;
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.service.PatientService;
 import com.jee.clinicmanagementsystem.service.StaffService;
@@ -40,7 +41,7 @@ public class GpController {
     	loggedUser(model);
         return "gp/index";
     }
-    
+////////////////// PATIENT METHODS ///////////
     @RequestMapping("/listpatients")
     public String patientsList(Model model) {
     	List<Patient> listPatients = patientService.getAllPatients();
@@ -85,5 +86,32 @@ public class GpController {
     	return "redirect:/gp/";
 
     }
-
+    ////////////////// END PATIENT METHODS ///////////
+    
+    ////////////// RDV METHODS ///////////
+    @GetMapping("/addrdv")
+    public String addRdvForm(Model model) {
+    	loggedUser(model);
+    	model.addAttribute("rdv", new Rdv());
+    	// send all patient 
+    	// send departement and doctors
+         return "gp/add-rdv";	
+    	
+    }
+   /* @PostMapping("/addrdv")
+    public String processAddRdv(Patient patient) {
+    	
+    	patientService.savePatient(patient);
+        return "redirect:/gp/";
+    }*/
+    @GetMapping("/allrdv")
+    public String allRDV(Model model) {
+    	loggedUser(model);
+    	model.addAttribute("rdv", new Rdv());
+    	// send all patient 
+    	// send departement and doctors
+         return "gp/all-rdv";	
+    	
+    }
+    
 }
