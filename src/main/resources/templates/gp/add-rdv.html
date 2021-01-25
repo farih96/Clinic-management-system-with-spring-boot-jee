@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
@@ -16,6 +18,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" >
     <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
 
 </head>
 
@@ -44,14 +47,8 @@
 												<label>Patient :</label>
 												<select id="selectpatient" class="select">
 													<option>Select</option>
-													<option>Jennifer Robinson</option>
-													<option>Terry Baker</option>
-													<option>farih </option>
-													<option>said </option>
-													<option>redouan </option>
-													<option>yassin </option>
-													<option>sara </option>
-													<option>mounia </option>
+													<option value="" selected>choisissez le patient</option>
+													<option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.firstName +' '+patient.lastName}"/>
 												</select>
 											</div>
 		                                </div>
@@ -64,52 +61,52 @@
 		                                </div>
 		                            </div>
                       </div>
-                      <div class="card-box">
+                      <div  class="card-box">
                         		<h4 class="card-title">Information sur le docteur:</h4>
 		                            <div class="row">
 		                                
 		                                <div class="col-md-6">
 											<div class="form-group">
 												<label>Departement :</label>
-												<select class="select">
-													<option>Select</option>
-													<option>Jennifer Robinson</option>
-													<option>Terry Baker</option>
-													<option>farih </option>
-													<option>said </option>
-													<option>redouan </option>
-													<option>yassin </option>
-													<option>sara </option>
-													<option>mounia </option>
+												<select class="select" >
+												    <option value="" selected>choisissez le departement</option>
+													<option value="1">Jennifer Robinson</option>
+													<option value="24">Terry Baker</option>
+													<option value="32">farih </option>
+													<option value="22">said </option>
+													<option value="21">redouan </option>
+													<option value="45">yassin </option>
+													<option value="5">sara </option>
+													<option value="10">mounia </option>
 												</select>
 											</div>
 		                                </div>
 		                                <div class="col-md-6">
 											<div class="form-group">
 												<label>Docteur :</label>
-												<select class="select">
-													<option>Select</option>
-													<option>Jennifer Robinson</option>
-													<option>Terry Baker</option>
-													<option>farih </option>
-													<option>said </option>
-													<option>redouan </option>
-													<option>yassin </option>
-													<option>sara </option>
-													<option>mounia </option>
+												<select class="select" id="docid">
+											     	<option value="" selected>choisissez le medecin</option>
+												    <option value="1">Jennifer Robinson</option>
+													<option value="24">Terry Baker</option>
+													<option value="32">farih </option>
+													<option value="22">said </option>
+													<option value="21">redouan </option>
+													<option value="45">yassin </option>
+													<option value="5">sara </option>
+													<option value="10">mounia </option>
 												</select>
 											</div>
 		                                </div>
 		                            </div>
                       </div>
-                      <div class="card-box">
-                        		<h4 class="card-title">Information sur le docteur:</h4>
+                      <div id="timebox" class="card-box">
+                        		<h4 class="card-title">La date et l'heure:</h4>
 		                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date</label>
                                         <div class="cal-icon">
-                                            <input type="text" class="form-control datetimepicker">
+                                            <input type="text" class="form-control"  id="datepicker">
                                         </div>
                                     </div>
                                 </div>
@@ -117,16 +114,22 @@
                                     <div class="form-group">
                                         <label>Time</label>
                                         <div class="time-icon">
-                                            <input type="text" class="form-control" id="datetimepicker3">
+                                            <input type="text" class="form-control" id="timepicker">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row ">
+	                         	<div class="col-md-4 ml-auto mr-3">
+	                                <button type="button" id="checkbtn" class="form-control btn btn-secondary m-0 p-0"><i class="fa fa-calendar m-2"></i>vérifier la disponibilité</button>
+	                            </div>
+                			</div>
+                            
                       </div>
                       <div class="card-box">
                       		<div class="form-group">
                                 <label>Message</label>
-                                <textarea cols="30" rows="4" class="form-control"></textarea>
+                                <textarea cols="30" rows="4" class="form-control" id="message"></textarea>
                             </div>
                       </div>
                       <div class="m-t-20 text-center">
@@ -148,13 +151,153 @@
 <script th:src="@{/js/select2.min.js}"></script>
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
-	<script>
-            $(function () {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script defer>
+	$(document).ready(function () {
             	
-                $('#datetimepicker3').datetimepicker({
-                    format: 'LT'
+                $('#timepicker').datetimepicker({
+                    format: 'LT',
+                    format : 'HH:mm',
+                  //  enabledHours: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+                    stepping: 10
 
                 });
+                var today = formatDate(new Date());
+                $('#datepicker').datepicker({
+                	 format : 'yyyy-mm-dd',
+					 startDate: today,
+                     clearBtn: true,
+                     todayHighlight: true,
+                     autoclose:true
+
+                });
+                
+            
+                $(function() {
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    $(document).ajaxSend(function(e, xhr, options) {
+                        if (options.type == "POST") {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+                });
+                var disponible = '';
+                $('#checkbtn').click(function(){
+                	 
+                	  var timebox = $("#timebox");
+                	  timebox.removeClass( "border border-danger" );
+                	  var date = $('#datepicker').val();
+                	  var time = $('#timepicker').val();
+                	  var docId = $('#docid').val();
+                	 
+                	  var formData =
+                      {		  
+                              'date' : date,
+                              'time' : time,
+                              'docId' : docId,
+                              
+
+                      };
+                	  for(var data in formData){
+                  		if( !formData[data] ) {
+                  			alert('le champ du '+data +" est vide !")
+                  	          return 0;
+                  	    }
+                  	  }
+                	  $.ajax(
+                              {
+                                  type : 'POST',
+                                  url : 'checkav',
+                                  data : formData,
+                                  dataType: "json",
+
+                                  success : function(data, status)
+                                  {
+                                	 
+                                	  if(data !== 0){
+                                		  // not availabale 
+                                		  disponible = false;
+                                		timebox.addClass( "border border-danger" );
+                                		alert("le médecin n'est pas valable à l'heure choisie, veulliez changer la date ou l'heure ou le médecin");
+                                	  }else{
+                                		  timebox.addClass( "border border-success" );
+                                		  alert('le médecin est disponible dans la date et l\'heure mentionnées');
+                                		  disponible = true;
+                                	  }
+                                	
+                                  },
+                                  
+
+                                
+                              });
+                	 
+                });
+                
+                $('.submit-btn').click(function(){
+                	//get vals 
+                	var patientId = $('#selectpatient').children("option:selected").val();
+                	//send gpid too
+                	var docId = $('#docid').val();
+                	var date = $('#datepicker').val();
+                	var time = $('#timepicker').val();
+                	var message = $('#message').val();
+                	//valid inputs
+                	
+                	
+                	
+                	var rdvData = {
+                        	'patientId':patientId,
+                        	'docId':docId,
+                        	'date': date,
+                        	'time' : time,
+                        	'date' : date,
+                        	'message' : message,
+                        	
+                        };
+                	for(var data in rdvData){
+                		if( !rdvData[data] &&  data!='message') {
+                			alert('le champ du '+data +" est vide !")
+                	          return 0;
+                	    }
+                	}
+                	if(!disponible){
+                		alert('vérifiez la disponibilité d\'abord');
+                		return 0;
+                		
+                	}
+                	
+                	$.ajax(
+                            {
+                                type : 'POST',
+                                url : 'addrdv',
+                                data :{
+                                	'patientId':patientId,
+                                	'docId':docId,
+                                	'date': date,
+                                	'time' : time,
+                                	'date' : date,
+                                	'message' : message,
+                                	
+                                },
+                                dataType: "json",
+
+                                success: function(data) {
+                                	if(data.added=='true'){
+                                		alert('le rendez-vous a bien été enregistré');
+                                		location.href = '../';
+                                		
+                                	}
+                                  },
+                                  error: function(xhr){
+                                      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                                  }
+
+                              
+                            });
+                	
+                	
+                })
                 
                $('#selectpatient').select2({
             	 width:"resolve",
@@ -175,6 +318,20 @@
                         return null;
                     }
                 })
+                
+                function formatDate(date) {
+				    var d = new Date(date),
+				        month = '' + (d.getMonth() + 1),
+				        day = '' + d.getDate(),
+				        year = d.getFullYear();
+
+				    if (month.length < 2) 
+				        month = '0' + month;
+				    if (day.length < 2) 
+				        day = '0' + day;
+
+				      return [year, month, day].join('-');
+				  }
             });
      </script>
 </body>

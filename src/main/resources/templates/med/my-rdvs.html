@@ -1,8 +1,7 @@
 <!DOCTYPE html>
+<html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-      >
+      xmlns:th="http://www.thymeleaf.org">
 
 
 <head>
@@ -19,10 +18,9 @@
 
 <body>
 <div class="main-wrapper">
-    <!-- header here -->
     <div th:replace="/includes/header :: header"> </div>
     <!-- menu here -->
-    <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
+    <div th:replace="/includes/med_side_menu :: med_side_menu"> </div>
     <div class="page-wrapper">
         <div class="content">
         <div class="row">
@@ -36,13 +34,12 @@
                     </div>
                 </div>
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12 mx-auto">
 						<div class="table-responsive">
 							<table class="table table-striped custom-table">
 								<thead>
 									<tr>
 										<th>Patient</th>
-										<th>Médecin </th>
 										<th>Date du RDV</th>
 										<th>Heure du RDV</th>
 										<th>Statut</th>
@@ -50,10 +47,8 @@
 									</tr>
 								</thead>
 								<tbody>
-								
-								<tr th:each="rdv : ${rdvs}" th:id="${rdv.id}">
+								   <tr th:each="rdv : ${rdvs}" th:id="${rdv.id}">
 								     <td th:text="${rdv.gpId}"> </td>
-								      <td th:text="${rdv.medId}"> </td>
 								     <td th:text="${rdv.rdvDate}"> </td>
 								     <td th:text="${rdv.rdvTime}"> </td>
 								     <td th:switch="${rdv.status}">
@@ -70,16 +65,15 @@
 											</div>
 									</td>
 								   </tr>
-								   
-									
 									
 								</tbody>
 							</table>
 						</div>
 					</div>
                 </div>
-            </div>
+        
         </div>
+        
     </div>
 </div>
 <div class="sidebar-overlay" data-reff=""></div>

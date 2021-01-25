@@ -3,7 +3,9 @@ package com.jee.clinicmanagementsystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.jee.clinicmanagementsystem.entity.Department;
@@ -14,6 +16,7 @@ import com.jee.clinicmanagementsystem.repository.StaffRepository;
 
 @SpringBootApplication
 @ComponentScan({ "com.jee.clinicmanagementsystem.*" })
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class ClinicmanagementsystemApplication {
 
     public static void main(String[] args) {

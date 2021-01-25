@@ -19,15 +19,20 @@ public class Rdv {
 	 private long patientId;
 	 private long medId;
 	// @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy, timezone = UTC)
-	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy, timezone = UTC")
+	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-mm-dd, timezone = UTC")
 	 @Temporal(TemporalType.DATE)
 	 private Date rdvDate;
 	 
-	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm:ss, timezone = UTC")
+	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm, timezone = UTC")
 	 @Temporal(TemporalType.TIME)
 	 private Date rdvTime;
 	 private int status;
+	 private String message;
 	 
+	public Rdv() {
+		
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -83,6 +88,15 @@ public class Rdv {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 	 	 
  
 }
