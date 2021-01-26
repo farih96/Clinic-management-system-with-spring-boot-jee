@@ -1,13 +1,14 @@
 <div class="sidebar" id="sidebar" th:fragment="med_side_menu">
+
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="menu-title">Main</li>
+                <li class="menu-title" id="test">Main</li>
                 <li class="active">
-                    <a href="index-2.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                    <a href=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="doctors.html"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
+                    <a id="rdvhref" onclick="redirect()"><i class="fa fa-user-md"></i> <span>My RDV</span></a>
                 </li>
                 <li>
                     <a href="patients.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
@@ -153,11 +154,27 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0);"><span>Level 1</span></a>
+                            <a href="javascript:void(0);"><span>Level 0</span></a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
+    
+
+<script>
+function redirect() {
+	
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+	today = yyyy+ '-' + mm + '-' + dd ;
+	window.location.href = "../../med/rdv/"+today;
+}
+	
+	
+</script>
+
 </div>

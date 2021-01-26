@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+
+</head>
+
+<body>
+<div class="main-wrapper">
+    <div th:replace="/includes/header :: header"> </div>
+    <!-- menu here -->
+    <div th:replace="/includes/med_side_menu :: med_side_menu"> </div>
+    <div class="page-wrapper">
+        <div class="content">
+        <div class="row">
+                    <div class="col-sm-4 col-3">
+                        <h4>Les Rendez-vous Du <span id="title-date"></span></h4>
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20  float-right">
+                        <span class="btn btn-primary btn-rounded" id="dateminusone"> < </span>
+                        <span ><b id="navig-date"></b> </span>
+                        <span class="btn btn-primary btn-rounded " id="dateplusone"> > </span>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="col-md-12 mx-auto">
+						<div class="table-responsive">
+							<table class="table table-striped custom-table">
+								<thead>
+									<tr>
+										<th>Patient</th>
+										<th>Date du RDV</th>
+										<th>Heure du RDV</th>
+										<th>Statut</th>
+										<th class="text-right">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								   <tr th:each="rdv : ${rdvs}" th:id="${rdv.id}">
+								     <td th:text="${rdv.gpId}"> </td>
+								     <td th:text="${rdv.rdvDate}"> </td>
+								     <td th:text="${rdv.rdvTime}"> </td>
+								     <td th:switch="${rdv.status}">
+								         <span th:case="1"class="custom-badge status-red">Inactive</span>
+								         <span th:case="0"class="custom-badge status-green">Active</span>
+								     </td>
+								     <td class="text-right">
+											<div class="dropdown dropdown-action">
+												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+												</div>
+											</div>
+									</td>
+								   </tr>
+									
+								</tbody>
+							</table>
+							<div class="alert alert-dark text-center" style=""
+							 th:if="${rdvs.empty}"><strong>pas de rendez-vous !</strong>
+							 </div>
+						</div>
+					</div>
+                </div>
+        
+        </div>
+        
+    </div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/js/Chart.bundle.js}"></script>
+<script th:src="@{/js/chart.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script defer>
+	$(document).ready(function () {
+		
+		//getting the date from url
+		var dateString = $(location).attr("href").split('/').pop();
+		
+		// injecting the date into the dom
+		var titledate = $('#title-date');
+		var navdate = $('#navig-date');
+		titledate.text(dateString);
+		navdate.text(dateString);
+		
+		var date = new Date(dateString);
+		
+		$('#dateplusone').click(function(){
+			date.setDate(date.getDate() + 1);
+			location.href = './'+formatDate(date);
+		});
+		
+		$('#dateminusone').click(function(){
+			date.setDate(date.getDate() - 1);
+			location.href = './'+formatDate(date);
+			
+		});
+		
+		
+		
+		function formatDate(date) {
+		    var d = new Date(date),
+		        month = '' + (d.getMonth() + 1),
+		        day = '' + d.getDate(),
+		        year = d.getFullYear();
+
+		    if (month.length < 2) 
+		        month = '0' + month;
+		    if (day.length < 2) 
+		        day = '0' + day;
+
+		    return [year, month, day].join('-');
+		}
+		
+		
+		
+	});
+</script>
+
+</body>
+
+
+
+</html>
