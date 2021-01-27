@@ -27,7 +27,27 @@ public class Rdv {
 	 @Temporal(TemporalType.TIME)
 	 private Date rdvTime;
 	 private int status;
-	 private String message;
+     private String message;
+	 private String[] meds;
+	 private String[] scans;
+	 
+	 public String[] getMeds() {
+		return meds;
+	}
+
+	public void setMeds(String[] meds) {
+		this.meds = meds;
+	}
+
+	public String[] getScans() {
+		return scans;
+	}
+
+	public void setScans(String[] scans) {
+		this.scans = scans;
+	}
+
+
 	 
 	public Rdv() {
 		

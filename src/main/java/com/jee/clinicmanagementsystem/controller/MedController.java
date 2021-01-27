@@ -10,8 +10,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +26,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/med")
@@ -48,7 +54,7 @@ public class MedController {
     
     /////////////////////////////////////////////////
     /********************* RDV *********************/
-    @GetMapping("/rdv/{date}")
+    @GetMapping("/rdvs/{date}")
     public String rdvByDate(@PathVariable("date") String date,Model model) {
     	loggedUser(model);
     	// get med id 
@@ -69,6 +75,35 @@ public class MedController {
     	// link it to thymleaf
 	    model.addAttribute("rdvs", rdvs);
 	    return "med/my-rdvs";
+    	
+    }
+    @GetMapping("/rdv/{id}")
+    public String rdvDetails(@PathVariable("id") String rdvId,Model model) {
+    	loggedUser(model);
+    	Rdv rdv = rdvService.findRdvById(Long.valueOf(rdvId));
+    	model.addAttribute("rdv", rdv);
+    	return "med/rdv-details";
+    	
+    }
+    @RequestMapping(value = "/donerdv", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public HashMap<String, Boolean> setRdvAsDone(HttpServletRequest request) {
+    	String[] meds = request.getParameterValues("meds[]");
+    	String[] scanners = request.getParameterValues("scanners[]");
+    	String description = request.getParameter("description");
+    	String rdvId = request.getParameter("rdvId");
+    	Rdv rdv = rdvService.findRdvById(Long.valueOf(rdvId));
+    	
+    	rdv.setMeds(meds);
+    	rdv.setScans(scanners);
+    	rdv.setMessage(description);
+    	rdv.setStatus(1);
+    	
+    	rdvService.saveRdv(rdv);
+    	HashMap<String, Boolean> map = new HashMap<>();
+    	map.put("traiter", true);
+        
+    	return map;
     	
     }
     

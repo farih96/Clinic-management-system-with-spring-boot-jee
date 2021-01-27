@@ -13,7 +13,13 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
     <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
     <link rel="stylesheet" th:href="@{/css/style.css}" >
-
+	<style>
+		tbody tr:hover {
+			background-color:#6495ED !important;
+			color : white !important;
+			cursor : pointer;
+		}
+	</style>
 </head>
 
 <body>
@@ -43,7 +49,7 @@
 										<th>Date du RDV</th>
 										<th>Heure du RDV</th>
 										<th>Statut</th>
-										<th class="text-right">Action</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -55,15 +61,6 @@
 								         <span th:case="1"class="custom-badge status-red">Inactive</span>
 								         <span th:case="0"class="custom-badge status-green">Active</span>
 								     </td>
-								     <td class="text-right">
-											<div class="dropdown dropdown-action">
-												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-												</div>
-											</div>
-									</td>
 								   </tr>
 									
 								</tbody>
@@ -128,6 +125,13 @@
 		    return [year, month, day].join('-');
 		}
 		
+		
+		$("tbody tr").click(function() {
+            if($(this).attr('id')){
+            	
+                window.location = "../rdv/"+$(this).attr('id');
+            }
+        });
 		
 		
 	});

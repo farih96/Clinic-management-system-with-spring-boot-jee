@@ -19,6 +19,10 @@ public class RdvService {
 	public Rdv saveRdv(Rdv rdv) {
         return rdvRepository.save(rdv);
     } 
+	
+	public Rdv findRdvBy(Long id) {
+        return rdvRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Rdv Id:" + id)); 
+    } 
 
     public List<Rdv> findRdvByDate(Date date) {
        return rdvRepository.findRdvByDate(date);

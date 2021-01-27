@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+	
+</head>
+
+<body>
+<div class="main-wrapper">
+    <div th:replace="/includes/header :: header"> </div>
+    <!-- menu here -->
+    <div th:replace="/includes/med_side_menu :: med_side_menu"> </div>
+    <div class="page-wrapper">
+        <div class="content">
+        	  <div class="row">
+                    <div class="col-md-6 m-auto">
+                        <div class="card-box">
+                            <h3 class="card-title">Rendez-vous le :<span class="float-right">N° <span th:text="${rdv.id}"></span></span></h3>
+                            <div class="" style="font-size:19px">
+                                                 <span class=" ml-5">
+                                                    <span class="title">Date:</span>
+                                                    <span class="text" th:text="${rdv.rdvDate}"></span>
+                                                </span>
+                                                <span class="float-right mr-5">
+                                                    <span class="title bold">heure:</span>
+                                                    <span class="text" th:text="${rdv.rdvTime}"></span>
+                                                </span>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+                <div class="card-box profile-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-view">
+                               
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-md-0">
+
+                                            <div class="profile-info-left "style="height: 100%">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <ul class="personal-info">
+                                                <li><h4 class="user-name" >Cristina Groves</h4></li>
+                                                <li>
+                                                    <span class="title">Age:</span>
+                                                    <span class="text">26</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Gender:</span>
+                                                    <span class="text">Female</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Phone:</span>
+                                                    <span class="text"><a href="#">770-889-6484</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Email:</span>
+                                                    <span class="text"><a href="#">cristinagroves@example.com</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Address:</span>
+                                                    <span class="text">714 Burwell Heights Road, Bridge City, TX, 77611</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+              <form id="consultaion-form">      
+              <div class="card-box mt-4 p-4">
+                 <h3 class="card-title">Consultaion</h3>
+                 <textarea name="description" class="form-control mb-4" id="description" rows="3" placeholder="description..."></textarea>
+                <div id="accordion">
+                      <div class="card alert-info">
+                        <div class="card-header " id="headingOne">
+                          <h5 class="mb-0">
+                            <button type="button" class="btn btn-link" style="width: 100%" data-toggle="collapse" data-target="#collapseOne"  aria-controls="collapseOne">
+                             <span class="card-title float-left">Médicaments :  </span><i class="fa fa-plus-circle card-title float-right"></i>
+
+                            </button>
+
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                            <div class="form-group row text-center">
+                                    <label class="col-form-label col-md-3">médicament :</label>
+                                    <div class="col-md-6 ml-0">
+                                        <input type="text" class="form-control" name="meds[]"> 
+                                    </div>
+                                    <button type="button" style="font-size: 1.5em" class="btn col-form-label col-md-1 " onclick="deleteInput(this)"><i class="fa fa-close text-danger"></i></button>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-6 text-right">
+                                    <button  type="button" class="btn btn-primary btn-rounded float-right" style="font-size: 1.2em" data-toggle="collapse" data-target="#collapseOne"  aria-controls="collapseOne"> Valider</button>
+                                </div>
+                                <div class="col-sm-6 col-6 text-right m-b-20">
+                                    <button type="button" id="add-med-input" class="btn btn-secondary btn-rounded float-right"><i class="fa fa-plus"></i> un champ</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card alert-info">
+                        <div class="card-header" id="headingTwo">
+                          <h5 class="mb-0">
+                            <button type="button" class="btn btn-link collapsed" style="width: 100%" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              <span class="card-title float-left">Scanners et Analyse :  </span><i class="fa fa-plus-circle card-title float-right"></i>
+                            </button>
+                          </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          <div class="card-body">
+                            <div class="form-group row ">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-7  ">
+                                        <input type="text" class="form-control" name="scanners[]"> 
+                                    </div>
+                                    <button type="button" style="font-size: 1.5em" class="btn col-form-label col-md-1 " onclick="deleteInput(this)"><i class="fa fa-close text-danger"></i></button>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-6 text-right">
+                                    <button type="button" class="btn btn-primary btn-rounded float-right" style="font-size: 1.2em" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Valider</button>
+                                </div>
+                                <div class="col-sm-6 col-6 text-right m-b-20">
+                                    <button type="button" id="add-scan-input" class="btn btn-secondary btn-rounded float-right"><i class="fa fa-plus"></i> un champ</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+              <input type="hidden" name="rdvId" th:value="${rdv.id}">
+            </form>
+              <div class="m-t-20 text-center">
+                                <button type="button" id="terminer-btn" class="btn btn-primary submit-btn">Terminer</button>
+               </div>
+        </div>
+    </div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/js/Chart.bundle.js}"></script>
+<script th:src="@{/js/chart.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+ <script defer >
+        $( document ).ready(function() {
+        	$(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                $(document).ajaxSend(function(e, xhr, options) {
+                    if (options.type == "POST") {
+                        xhr.setRequestHeader(header, token);
+                    }
+                });
+            });
+        	
+                 $('#add-med-input').click(function(){
+                       $(this).parent().parent().before('<div class="form-group row text-center"><label class="col-form-label col-md-3">médicament :</label><div class="col-md-6 ml-0"><input type="text" class="form-control" name="meds[]"></div><button  type="button" style="font-size: 1.5em" class="btn col-form-label col-md-1" onclick="deleteInput(this)"><i class="fa fa-close text-danger"></i></button></div>');
+
+
+                 });
+
+                 $('#add-scan-input').click(function(){
+                    $(this).parent().parent().before('<div class="form-group row "><div class="col-md-2"></div><div class="col-md-7  "><input type="text" class="form-control" name="scanners[]"></div><button  type="button" style="font-size: 1.5em" class="btn col-form-label col-md-1 " onclick="deleteInput(this)"><i class="fa fa-close text-danger"></i></button></div>');
+                   });
+                 
+                 
+                $('#terminer-btn').click(function(){
+	                  var scanners = $('input[name="scanners[]"]').map(function(){return $(this).val();}).get();  
+	                  var meds = $('input[name="meds[]"]').map(function(){return $(this).val();}).get(); 
+	                  var rdvId = $('input[name="rdvId"]').val();
+	                   var description = $('#description').val(); 
+	                  
+	                  var data ={
+                        	  'rdvId' : rdvId,
+                        	  'description':description,
+                        	  'scanners' : scanners,
+                        	  'meds' : meds
+                          }; 
+	                   $.ajax(
+	                          {
+	                              type : 'POST',
+	                              url : '../donerdv',
+	                              data :data,
+	                              dataType: "json",
+	
+	                              success: function(data,status) {
+	                            	  
+	                              	console.log(data.traiter);
+	                              	if(data.traiter){
+	                              		alert('Marqué comme traité');
+	                              		var today = new Date();
+	                              		var dd = String(today.getDate()).padStart(2, '0');
+	                              		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	                              		var yyyy = today.getFullYear();
+	                              		today = yyyy+ '-' + mm + '-' + dd ;
+	                              		window.location.href = "../../med/rdvs/"+today;
+	                              		
+	                              	}else{
+	                              		alert('erreur!');
+	                              	}
+	                              		
+	                              	
+	                                },
+	                                error: function(xhr){
+	                                  //  alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	                                }
+	
+	                            
+	                          });
+                });   
+                 
+                
+                
+                
+                
+            });
+
+
+         function deleteInput(btn){
+                    $(btn).parent().fadeOut();
+         }       
+    </script>
+</body>
+
+
+
+</html>
