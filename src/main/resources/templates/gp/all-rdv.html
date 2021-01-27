@@ -135,7 +135,13 @@
 		    return [year, month, day].join('-');
 		}
 		
-		
+
+		$("tbody tr").click(function() {
+            if($(this).attr('id')){
+            	
+                window.location = "../rdv/"+$(this).attr('id');
+            }
+        });
 		
 	});
 </script>

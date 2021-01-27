@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      >
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+
+</head>
+
+<body>
+<div class="main-wrapper">
+    <!-- header here -->
+    <div th:replace="/includes/header :: header"> </div>
+    <!-- menu here -->
+    <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
+    <div class="page-wrapper">
+         <div class="content">
+                
+                <div class="row">
+                    <div class="col-md-6 m-auto">
+                        <div class="card-box">
+                            <h3 class="card-title">Rendez-vous: <span style="margin:auto 20%;">N°<span th:text="${rdv.id}"></span></span> 
+	                            <span th:switch="${rdv.status}">
+									         <span th:case="1"class="custom-badge status-red">Traité</span>
+									         <span th:case="0"class="custom-badge status-green">Active</span>
+								</span>
+                            </h3>
+                             <div class="" style="font-size:19px">
+                                                 <span class=" ml-4">
+                                                    <span class="title">Date:</span>
+                                                    <span class="text">2020-15-12</span>
+                                                </span>
+                                                <span class="float-right mr-5">
+                                                    <span class="title bold">heure:</span>
+                                                    <span class="text">15:50</span>
+                                                </span>
+                            </div>
+                            
+                        </div>
+                        
+                </div>
+            </div>
+            
+                <div class="card-box profile-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-view">
+                               
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-md-0">
+
+                                            <div class="profile-info-left "style="height: 100%">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <ul class="personal-info">
+                                                <li><h4 class="user-name" >Cristina Groves</h4></li>
+                                                <li>
+                                                    <span class="title">Age:</span>
+                                                    <span class="text">26</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Gender:</span>
+                                                    <span class="text">Female</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Phone:</span>
+                                                    <span class="text"><a href="#">770-889-6484</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Email:</span>
+                                                    <span class="text"><a href="#">cristinagroves@example.com</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Address:</span>
+                                                    <span class="text">714 Burwell Heights Road, Bridge City, TX, 77611</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+                <br>
+                 <div class="card-box ">
+                     <h4 class="card-title">Consultation</h4>
+                    <div class=" row">
+                    <table class="table col-md-9 m-auto">
+    
+                            <tbody class="text-left">
+                              <tr>
+                                <th>Description</th> 
+                                <td th:text="${rdv.message}"></td>
+                              </tr>
+                              <tr>
+                                <th>Médicaments :</th>
+                                <td >
+	                                <ul th:each="med : ${rdv.meds}">
+	                                   <li th:text="${med}"> </li>
+	                                </ul>
+                                </td>
+                              </tr>
+                              <tr>
+                                <b><th>Scanners et Analyse :</th></b>
+                                <td>
+	                                <ul th:each="scan : ${rdv.scans}">
+	                                   <li th:text="${scan}"> </li>
+	                                </ul>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                 </div>
+              <div class="m-t-20 text-center">
+                                <button type="button" id="terminer-btn" class="btn btn-primary submit-btn">
+                                    <i class="fa fa-chevron-left"> </i> Retour</button>
+               </div>
+            
+        </div>
+    </div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/js/Chart.bundle.js}"></script>
+<script th:src="@{/js/chart.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+
+
+
+</html>

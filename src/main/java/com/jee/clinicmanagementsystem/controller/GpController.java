@@ -187,12 +187,22 @@ public class GpController {
 	  		e.printStackTrace();
 	  	  }
     	 List<Rdv> rdvs = rdvService.findRdvByDate(rdvsDate);
+    	 
     	// link it to thymleaf
 	    model.addAttribute("rdvs", rdvs);
 	    //get doctor and patient name
 	    model.addAttribute("patients", patientService.getAllPatients());
     	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/all-rdv";	
+    	
+    }
+    
+    @GetMapping("/rdv/{id}")
+    public String rdvDetails(@PathVariable("id") String rdvId,Model model) {
+    	loggedUser(model);
+    	Rdv rdv = rdvService.findRdvById(Long.valueOf(rdvId));
+    	model.addAttribute("rdv", rdv);
+    	return "gp/rdv-details";
     	
     }
     
