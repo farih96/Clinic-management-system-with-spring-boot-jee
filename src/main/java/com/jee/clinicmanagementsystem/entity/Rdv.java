@@ -16,7 +16,12 @@ public class Rdv {
      @GeneratedValue( strategy = GenerationType.IDENTITY)
 	 private long id;
 	 private long gpId;
+	 
+	 
 	 private long patientId;
+	 
+	 /*@OneToOne(targetEntity = Staff.class, cascade = CascadeType.ALL)
+	 @JoinColumn(name = "med_id", referencedColumnName = "id")*/
 	 private long medId;
 	// @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy, timezone = UTC)
 	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-mm-dd, timezone = UTC")

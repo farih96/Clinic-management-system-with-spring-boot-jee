@@ -4,6 +4,7 @@ package com.jee.clinicmanagementsystem.controller;
 import com.jee.clinicmanagementsystem.entity.Patient;
 import com.jee.clinicmanagementsystem.entity.Rdv;
 import com.jee.clinicmanagementsystem.entity.Staff;
+import com.jee.clinicmanagementsystem.service.DepartmentService;
 import com.jee.clinicmanagementsystem.service.PatientService;
 import com.jee.clinicmanagementsystem.service.RdvService;
 import com.jee.clinicmanagementsystem.service.StaffService;
@@ -38,6 +39,8 @@ public class GpController {
     private PatientService patientService;
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private DepartmentService departmentService;
     @Autowired
     private RdvService rdvService;
     
@@ -109,6 +112,8 @@ public class GpController {
     	List<Patient> patients = patientService.getAllPatients();
     	model.addAttribute("patients", patients);
     	// send departement and doctors
+    	model.addAttribute("departments", departmentService.getAllDepartments());
+    	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/add-rdv";	
     	
     }
@@ -184,6 +189,9 @@ public class GpController {
     	 List<Rdv> rdvs = rdvService.findRdvByDate(rdvsDate);
     	// link it to thymleaf
 	    model.addAttribute("rdvs", rdvs);
+	    //get doctor and patient name
+	    model.addAttribute("patients", patientService.getAllPatients());
+    	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/all-rdv";	
     	
     }

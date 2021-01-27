@@ -70,14 +70,7 @@
 												<label>Departement :</label>
 												<select class="select" >
 												    <option value="" selected>choisissez le departement</option>
-													<option value="1">Jennifer Robinson</option>
-													<option value="24">Terry Baker</option>
-													<option value="32">farih </option>
-													<option value="22">said </option>
-													<option value="21">redouan </option>
-													<option value="45">yassin </option>
-													<option value="5">sara </option>
-													<option value="10">mounia </option>
+													<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.departmentName}"/>
 												</select>
 											</div>
 		                                </div>
@@ -86,14 +79,8 @@
 												<label>Docteur :</label>
 												<select class="select" id="docid">
 											     	<option value="" selected>choisissez le medecin</option>
-												    <option value="1">Jennifer Robinson</option>
-													<option value="24">Terry Baker</option>
-													<option value="32">farih </option>
-													<option value="22">said </option>
-													<option value="21">redouan </option>
-													<option value="45">yassin </option>
-													<option value="5">sara </option>
-													<option value="10">mounia </option>
+													<option th:each="staff : ${staff}" th:value="${staff.id}" th:text="${staff.firstName +' '+staff.lastName}"/>
+													
 												</select>
 											</div>
 		                                </div>

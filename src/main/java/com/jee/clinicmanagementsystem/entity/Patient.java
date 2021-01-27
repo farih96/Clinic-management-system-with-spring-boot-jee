@@ -1,12 +1,18 @@
 package com.jee.clinicmanagementsystem.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Patient {
@@ -24,6 +30,20 @@ public class Patient {
     private String sex;
     private Date dateOfBirth ;
     
+    /*@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="patientId", referencedColumnName="id")
+    List<Rdv> rdv = new ArrayList<>();
+    
+	public List<Rdv> getRdv() {
+		return rdv;
+	}
+
+
+	public void setRdv(List<Rdv> rdv) {
+		this.rdv = rdv;
+	}*/
+
+
 	public Patient(Long id, String lastName, String firstName, String email, String phoneNumber, String adress,String sex,Date dateOfBirth) {
 		
 		this.id = id;
