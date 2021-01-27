@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,6 +109,29 @@ public class MedController {
     	
     }
     
+    
+    public void loggedUser(Model model) {
+     	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+ 	    String email = loggedInUser.getName(); 
+ 	    Staff staff = staffService.findStaffByEmail(email);
+ 	    model.addAttribute("staffinfo", staff);
+     }
+
+ 	@RequestMapping("/listdoctors")
+    public String doctorsList(Model model) {
+    	List<Staff> listDoctors= staffService.getAllDoctors();
+    	model.addAttribute("listDoctors", listDoctors);
+    	loggedUser(model);
+    	return"doctors_list";
+	}
+ 	
+ 	@RequestMapping("/docbydepartment/{id}")
+    public String doctorsBydepartmentList(@PathVariable("id") Long id,  Model model) {
+    	List<Staff>  listDoctorsbydepartment= staffService.findDocByDepartmentId(id);
+    	model.addAttribute("listDoctorsbydepartment", listDoctorsbydepartment);
+    	
+    	return"doctors_bydepartment";
+	}
     
     
 

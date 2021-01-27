@@ -1,5 +1,6 @@
 package com.jee.clinicmanagementsystem.service;
 
+import com.jee.clinicmanagementsystem.entity.Department;
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.repository.DepartmentRepository;
 import com.jee.clinicmanagementsystem.repository.DoctorRepository;
@@ -46,6 +47,7 @@ public class StaffService {
            
     		staffToUpdate.setPhoneNumber(staff.getPhoneNumber());
     		staffToUpdate.setRole(staff.getRole());
+    		staffToUpdate.setDepartmentId(staff.getDepartmentId());
     		
     		
     	}
@@ -69,6 +71,8 @@ public class StaffService {
 	public List<Staff> findDocByDepartmentId(Long id) {
 		return staffRepository.findDocByDepartmentId(id);
 	}
+	
+	
 
 	
 

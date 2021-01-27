@@ -20,9 +20,10 @@ public class DoctorController {
 	
 	 @Autowired
 	    private StaffService staffService;
+	 	private DepartmentService departmentService;
 	 	
 	 	
-	 	 public void loggedUser(Model model) {
+	 	/* public void loggedUser(Model model) {
 	     	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	 	    String email = loggedInUser.getName(); 
 	 	    Staff staff = staffService.findStaffByEmail(email);
@@ -41,9 +42,9 @@ public class DoctorController {
 	    public String doctorsBydepartmentList(@PathVariable("id") Long id,  Model model) {
 	    	List<Staff>  listDoctorsbydepartment= staffService.findDocByDepartmentId(id);
 	    	model.addAttribute("listDoctorsbydepartment", listDoctorsbydepartment);
-	    	loggedUser(model);
+	    	
 	    	return"doctors_bydepartment";
-		}
+		}*/
 
 	 	
 		

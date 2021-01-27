@@ -36,7 +36,7 @@ public class Staff {
     }*/
 
     public Staff(String lastName, String firstName, Long matriculeNumber, String email, String password,
-			String phoneNumber, String role) {
+			String phoneNumber, String role, Long departmentId) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -45,6 +45,7 @@ public class Staff {
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 		this.role = role;
+		this.departmentId = departmentId;
 	}
 
 	public Staff() {

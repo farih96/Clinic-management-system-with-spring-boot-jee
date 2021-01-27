@@ -13,4 +13,7 @@ import com.jee.clinicmanagementsystem.entity.Staff;
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
 	
+	Department findDepartmentById(Long id);
+
+	
 	}
