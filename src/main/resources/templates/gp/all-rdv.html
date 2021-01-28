@@ -38,9 +38,9 @@
                         <h4>Les Rendez-vous Du <span id="title-date"></span></h4>
                     </div>
                     <div class="col-sm-8 col-9 text-right m-b-20  float-right">
-                        <span class="btn btn-primary btn-rounded" id="dateminusone">< </span>
+                        <span class="btn btn-primary btn-rounded" id="dateminusone"> </span>
                         <span ><b id="navig-date"></b> </span>
-                        <span class="btn btn-primary btn-rounded " id="dateplusone"> > </span>
+                        <span class="btn btn-primary btn-rounded " id="dateplusone">  </span>
                     </div>
                 </div>
 				<div class="row">
@@ -61,7 +61,7 @@
 								
 									<tr  th:each="rdv : ${rdvs}" th:id="${rdv.id}">
 									     <td th:text="${rdv.patient.firstName+' '+rdv.patient.LastName}"> </td>
-									      <td th:text="${rdv.doc.id}"> </td>
+									      <td th:text="${rdv.doc.firstName+' '+rdv.doc.LastName}"> </td>
 									     <td th:text="${rdv.rdvDate}"> </td>
 									     <td th:text="${rdv.rdvTime}"> </td>
 									     <td th:switch="${rdv.status}">
