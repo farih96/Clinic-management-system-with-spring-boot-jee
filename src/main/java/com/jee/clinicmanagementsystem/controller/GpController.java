@@ -200,4 +200,15 @@ public class GpController {
     	
     }
     
+    @GetMapping("/facture/{id}")
+    public String factureRdv(@PathVariable("id") String rdvId,Model model) {
+    	loggedUser(model);
+    	Rdv rdv = rdvService.findRdvById(Long.valueOf(rdvId));
+    	model.addAttribute("rdv", rdv);
+    	return "gp/facture";
+    	
+    }
+    
+    
+    
 }
