@@ -1,12 +1,16 @@
 package com.jee.clinicmanagementsystem.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -22,7 +26,11 @@ public class Patient {
     private String phoneNumber;
     private String adress;
     private String sex;
-    private Date dateOfBirth ;
+    private Date dateOfBirth;
+    
+    @OneToMany(mappedBy="patient",fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Rdv> rdvs;
     
 	public Patient(Long id, String lastName, String firstName, String email, String phoneNumber, String adress,String sex,Date dateOfBirth) {
 		

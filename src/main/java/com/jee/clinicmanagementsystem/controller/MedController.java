@@ -109,14 +109,6 @@ public class MedController {
     	
     }
     
-    
-    public void loggedUser(Model model) {
-     	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
- 	    String email = loggedInUser.getName(); 
- 	    Staff staff = staffService.findStaffByEmail(email);
- 	    model.addAttribute("staffinfo", staff);
-     }
-
  	@RequestMapping("/listdoctors")
     public String doctorsList(Model model) {
     	List<Staff> listDoctors= staffService.getAllDoctors();
