@@ -1,10 +1,352 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+       <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" >
+
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+
+</head>
+
+<body>
+<div class="main-wrapper">
+    <!-- header here -->
+    <div th:replace="/includes/header :: header"> </div>
+    <!-- menu here -->
+    <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
+    <div class="page-wrapper">
+         <div class="content">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h4 class="page-title">modifier un Rendez-vous</h4>
+                    </div>
+                </div>
+                <div class="row">
+	                <div class="col-lg-9 offset-lg-1">
+	                 <!-- form tag -->
+	                 <div class="card-box">
+                        		<h4 class="card-title">Information sur le patient</h4>
+		                           <div class="row">
+                                <div class="col-sm-6">
+                                    <div >
+                                    <span class="title">Prénom :</span>
+                                     <span class="text" th:text="${rdv.patient.firstName}"></span>
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                      <span class="title">Nom :</span>
+                                     <span class="text"  th:text="${rdv.patient.lastName}"></span>
+                                      
+                                    </div>
+                                </div>
+                               
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                     <span class="title">Email :</span>
+                                     <span class="text"  th:text="${rdv.patient.email}"></span>
+                                    </div>
+                                </div>
+								<div class="col-sm-6">
+                                    
+                                </div>
+                                <div class="col-sm-6">
+									<div class="form-group gender-select">
+									 <span class="title">Sexe :</span>
+                                     <span class="text"   th:text="${rdv.patient.sex}"></span>
+                                       
+									</div>
+                                </div>
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+											 <span class="title">Address :</span>
+                                     		 <span class="text"   th:text="${rdv.patient.adress}"></span>
+                                       
+											</div>
+										</div>
+										
+									</div>
+								</div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                     		 <span class="title">Telephone :</span>
+                                     		 <span class="text"   th:text="${rdv.patient.phoneNumber}"></span>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                      </div>
+                      <div  class="card-box">
+                        		<h4 class="card-title">Information sur le docteur:</h4>
+		                            <div class="row">
+		                                
+		                                <div class="col-md-6">
+											<div class="form-group">
+												<label>Departement :</label>
+												<select class="select" >
+												    <option value="" selected>choisissez le departement</option>
+													<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.departmentName}"/>
+												</select>
+											</div>
+		                                </div>
+		                                <div class="col-md-6">
+											<div class="form-group">
+												<label>Docteur :</label> <span style="margin-left:50%" th:text="${rdv.doc.firstName +' '+rdv.doc.lastName}"></span>
+												<select class="select" id="docid">
+											     	<option value="" selected>choisissez le medecin</option>
+													<option th:each="staff : ${staff}" th:value="${staff.id}" th:text="${staff.firstName +' '+staff.lastName}"/>													
+
+												</select>
+											</div>
+		                                </div>
+		                            </div>
+                      </div>
+                      <div id="timebox" class="card-box">
+                        		<h4 class="card-title">La date et l'heure:</h4>
+		                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date</label><span style="margin-left:50%"  th:text="${rdv.rdvDate}"></span>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control"  id="datepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Time</label><span style="margin-left:50%"  th:text="${rdv.rdvTime}"></span>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control" id="timepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+	                         	<div class="col-md-4 ml-auto mr-3">
+	                                <button type="button" id="checkbtn" class="form-control btn btn-secondary m-0 p-0"><i class="fa fa-calendar m-2"></i>vérifier la disponibilité</button>
+	                            </div>
+                			</div>
+                            
+                      </div>
+                      <div class="m-t-20 text-center">
+                                <button class="btn btn-primary submit-btn">Modifier le RDV</button>
+                            </div>
+	                     
+	                </div>
+                </div>
+                
+          </div>
+    </div>
+</div>
+<div class="sidebar-overlay" data-reff=""></div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.slimscroll.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/select2.min.js}"></script>
+<script th:src="@{/js/moment.min.js}"></script>
+<script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script defer th:inline="javascript">
+	$(document).ready(function () {
+            	
+                $('#timepicker').datetimepicker({
+                    format: 'LT',
+                    format : 'HH:mm',
+                  //  enabledHours: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+                    stepping: 10
+
+                });
+                var today = formatDate(new Date());
+                $('#datepicker').datepicker({
+                	 format : 'yyyy-mm-dd',
+					 startDate: today,
+                     clearBtn: true,
+                     todayHighlight: true,
+                     autoclose:true
+
+                });
+                
+            
+                $(function() {
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    $(document).ajaxSend(function(e, xhr, options) {
+                        if (options.type == "POST") {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+                });
+                var disponible = '';
+                $('#checkbtn').click(function(){
+                	 
+                	  var timebox = $("#timebox");
+                	  timebox.removeClass( "border border-danger" );
+                	  var date = $('#datepicker').val();
+                	  var time = $('#timepicker').val();
+                	  var docId = $('#docid').val();
+                	 
+                	  var formData =
+                      {		  
+                              'date' : date,
+                              'time' : time,
+                              'docId' : docId,
+                              
+
+                      };
+                	  for(var data in formData){
+                  		if( !formData[data] ) {
+                  			alert('le champ du '+data +" est vide !")
+                  	          return 0;
+                  	    }
+                  	  }
+                	  $.ajax(
+                              {
+                                  type : 'POST',
+                                  url : '../../gp/checkav',
+                                  data : formData,
+                                  dataType: "json",
+
+                                  success : function(data, status)
+                                  {
+                                	 
+                                	  if(data !== 0){
+                                		  // not availabale 
+                                		  disponible = false;
+                                		timebox.addClass( "border border-danger" );
+                                		alert("le médecin n'est pas valable à l'heure choisie, veulliez changer la date ou l'heure ou le médecin");
+                                	  }else{
+                                		  timebox.addClass( "border border-success" );
+                                		  alert('le médecin est disponible dans la date et l\'heure mentionnées');
+                                		  disponible = true;
+                                	  }
+                                	
+                                  },
+                                  
+
+                                
+                              });
+                	 
+                });
+                
+                $('.submit-btn').click(function(){
+                	//get vals 
+                	
+                	//send gpid too
+                	var docId = $('#docid').val();
+                	var date = $('#datepicker').val();
+                	var time = $('#timepicker').val();
+                	var rdvId = [[${rdv.id}]];
+                	//valid inputs
+                	
+                	
+                	
+                	var rdvData = {
+                        	'docId':docId,
+                        	'date': date,
+                        	'time' : time,
+                        	'date' : date,
+                        	'rdvId' : String(rdvId),
+                        	
+                        };
+                	for(var data in rdvData){
+                		if( !rdvData[data] &&  data!='message') {
+                			alert('le champ du '+data +" est vide !")
+                	          return 0;
+                	    }
+                	}
+                	if(!disponible){
+                		alert('vérifiez la disponibilité d\'abord');
+                		return 0;
+                		
+                	}
+                	
+                	$.ajax(
+                            {
+                                type : 'POST',
+                                url : '../../gp/updaterdv',
+                                data :{
+                                
+                                	'docId':docId,
+                                	'date': date,
+                                	'time' : time,
+                                	'date' : date,
+                                	'rdvId' : String(rdvId),
+                                	
+                                },
+                                dataType: "json",
+
+                                success: function(data,status) {
+                                	if(data.added=='true'){
+                                		alert('le rendez-vous a bien été modifier');
+                                		location.href = '../';
+                                		
+                                	}
+                                  },
+                                  error: function(xhr){
+                                      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                                  }
+
+                              
+                            });
+                	
+                	
+                })
+                
+               $('#selectpatient').select2({
+            	 width:"resolve",
+                    matcher: function(params, data) {
+                        // If there are no search terms, return all of the data
+                        if ($.trim(params.term) === '') { return data; }
+
+                        // Do not display the item if there is no 'text' property
+                        if (typeof data.text === 'undefined') { return null; }
+
+                        
+                        var q = params.term.toLowerCase();
+                        if (data.text.toLowerCase().indexOf(q) > -1 || data.id.toLowerCase().indexOf(q) > -1) {
+                            return $.extend({}, data, true);
+                        }
+
+                        // Return `null` if the term should not be displayed
+                        return null;
+                    }
+                })
+                
+                function formatDate(date) {
+				    var d = new Date(date),
+				        month = '' + (d.getMonth() + 1),
+				        day = '' + d.getDate(),
+				        year = d.getFullYear();
+
+				    if (month.length < 2) 
+				        month = '0' + month;
+				    if (day.length < 2) 
+				        day = '0' + day;
+
+				      return [year, month, day].join('-');
+				  }
+            });
+     </script>
 </body>
+
+
+
 </html>

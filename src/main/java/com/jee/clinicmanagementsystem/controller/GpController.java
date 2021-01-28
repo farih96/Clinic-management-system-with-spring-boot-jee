@@ -128,6 +128,7 @@ public class GpController {
          return "gp/add-rdv";	
     	
     }
+    
     @RequestMapping(value = "/addrdv", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public HashMap<String,String> processAddRdvForm(HttpServletRequest request) {
@@ -164,6 +165,50 @@ public class GpController {
 		        }
 	    	else map.put("added", "false");
     	return map;
+    }
+    
+    
+    @GetMapping("/editrdv/{id}")
+    public String addRdvForm(@PathVariable("id") Long id,Model model) {
+    	loggedUser(model);
+    	Rdv rdv = rdvService.findRdvBy(id);
+    	model.addAttribute("rdv", rdv);
+    	model.addAttribute("departments", departmentService.getAllDepartments());
+    	model.addAttribute("staff", staffService.getAllDoctors());
+         return "gp/edit-rdv";	
+    	
+    }
+    
+    @RequestMapping(value = "/updaterdv", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public HashMap<String,String>  processEditRdvForm(HttpServletRequest request) {
+    
+	    	Rdv rdv = rdvService.findRdvBy(Long.valueOf(request.getParameter("rdvId")));
+	    	rdv.setDoc(staffService.findStaffById(Long.valueOf(request.getParameter("docId"))));
+
+	    	 String rdv_date = request.getParameter("date");
+	    	 String rdv_time = request.getParameter("time");
+	    	 Date rdvDate = null;
+	    	 Date rdvTime = null;
+	    	 
+	    	 try {
+	    		  rdvDate = new SimpleDateFormat("yyyy-MM-dd").parse(rdv_date);
+	    		  rdvTime = new SimpleDateFormat("HH:mm").parse(rdv_time);
+	    		  
+	    	  } catch (ParseException e) {
+	    		e.printStackTrace();
+	    	  } 
+
+	    	 rdv.setRdvDate(rdvDate);
+		     rdv.setRdvTime(rdvTime);
+		   
+        	 rdvService.updateRdv(rdv);
+		    HashMap<String,String> map = new HashMap<>();
+		    map.put("added", "true");
+		    return map;
+		    
+	    	
+    	
     }
     
    //check availability

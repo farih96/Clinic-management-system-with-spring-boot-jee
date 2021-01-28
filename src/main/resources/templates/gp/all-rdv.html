@@ -64,7 +64,7 @@
 									     <td th:text="${rdv.rdvDate}"> </td>
 									     <td th:text="${rdv.rdvTime}"> </td>
 									     <td th:switch="${rdv.status}">
-									         <span th:case="1"class="custom-badge status-red">Inactive</span>
+									         <span th:case="1"class="custom-badge status-red">Traité</span>
 									         <span th:case="0"class="custom-badge status-green">Active</span>
 									     </td>
 									     <td class="text-right">
@@ -72,7 +72,7 @@
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
 													    <a class="dropdown-item" th:href="${'/gp/rdv/'+rdv.id}" ><i class="fa fa-eye m-r-5"></i> Consulter</a>
-														<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Editer</a>
+														<a class="dropdown-item" th:href="${'/gp/editrdv/'+rdv.id}"><i class="fa fa-pencil m-r-5"></i> Editer</a>
 														<a class="dropdown-item" th:href="${'/gp/deleterdv/'+rdv.id}"  onclick=" confirm('confirmer la suppression !')" ><i class="fa fa-trash-o m-r-5"></i> Supprimmer</a>
 													</div>
 												</div>

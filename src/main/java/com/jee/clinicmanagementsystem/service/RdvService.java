@@ -1,12 +1,15 @@
 package com.jee.clinicmanagementsystem.service;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jee.clinicmanagementsystem.entity.Patient;
 import com.jee.clinicmanagementsystem.entity.Rdv;
 import com.jee.clinicmanagementsystem.repository.RdvRepository;
 
@@ -54,4 +57,17 @@ public class RdvService {
         return rdvRepository.findRdvByPatientId(patientId);
      	
      }
+    
+    public Rdv updateRdv(Rdv rdv) {
+    	
+    	
+        Rdv rdvToUpdate =  rdvRepository.findById(rdv.getId()).orElse(null);
+        if(rdvToUpdate != null) {
+        	rdvToUpdate.setDoc(rdv.getDoc());
+        	rdvToUpdate.setRdvDate(rdv.getRdvDate());
+        	rdvToUpdate.setRdvTime(rdv.getRdvTime());
+        	saveRdv(rdvToUpdate);
+        }
+        return rdvToUpdate;
+  }
 }
