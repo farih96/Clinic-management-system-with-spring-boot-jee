@@ -18,10 +18,11 @@ public class Rdv {
 	 private long gpId;
 
 	 
-	// private long patientId;
+	
 	 @ManyToOne(fetch = FetchType.LAZY)
 	 @JoinColumn(name="patient_id")
 	 private Patient patient;
+	 //private long patientId;
 	 @ManyToOne(fetch = FetchType.LAZY)
 	 @JoinColumn(name="staff_id")
 	 private Staff doc;
@@ -84,8 +85,8 @@ public class Rdv {
 	public void setGpId(long gpId) {
 		this.gpId = gpId;
 	}
-	/*
-	public long getPatientId() {
+	
+	/*public long getPatientId() {
 		return patientId;
 	}
 	

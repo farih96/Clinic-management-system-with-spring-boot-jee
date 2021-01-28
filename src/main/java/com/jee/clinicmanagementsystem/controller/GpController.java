@@ -67,6 +67,15 @@ public class GpController {
     	return"gp/patients_list";
     }
     
+    @RequestMapping("/profilepatient/{id}")
+    public String findPatientById(@PathVariable("id") Long id,  Model model){
+    	Patient patientByid = patientService.findPatientById(id);
+    	List<Rdv> findRdvBypatientId = rdvService.findRdvByPatientId(id);
+    	model.addAttribute("patientByid", patientByid);
+    	model.addAttribute("findRdvBypatientId", findRdvBypatientId);
+    	loggedUser(model);
+    	return"gp/patient-profile";
+    }
 
     @GetMapping("/addpatient")
     public String addPatientForm(Model model) {

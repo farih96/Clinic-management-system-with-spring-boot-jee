@@ -37,12 +37,22 @@
              <div>&nbsp;</div>
              <div>
              	<form  th:object="${listPatients}">
-             		Fiilter :
-             		 <input type="text" name="keyword" th:value="${keyword}" required/>
+             	<div class="row filter-row">
+             		<div class="col-sm-6 col-md-3">
+             		<div class="form-group form-focus">
+                            <label class="focus-label">Enter first or last name</label>
+                            <input class="form-control floating" type="text" name="keyword" th:value="${keyword}" />
+                     </div>       
+                     </div>
              		 &nbsp;
-             		 <input type="submit" value="Search" />
-             		 &nbsp;
-             		 <input type="button" value="Clear" />
+             		 <div class="col-sm-6 col-md-3">
+             		 <input type="submit" value="Search" class="btn btn-success btn-block" />
+             		 </div> 
+             		
+             		<div class="col-sm-6 col-md-3">
+    					<input class="btn btn-success btn-block" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+             		 </div> 
+             		 </div>
              	</form>
              </div>    
          <table class="table table-border table-striped custom-table datatable mb-0" border="1">
@@ -75,6 +85,8 @@
 												<div class="dropdown-menu dropdown-menu-right">
 													<a class="dropdown-item" th:href="@{'editpatient/' + ${patient.id}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
 													<a class="dropdown-item"  th:href="@{'deletepatient/' + ${patient.id}}" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+													<a class="dropdown-item" th:href="@{'profilepatient/' + ${patient.id}}"><i class="fa fa-pencil m-r-5"></i> Profile</a>
+													
 												</div>
 											</div>
 										</td>
@@ -104,6 +116,11 @@
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
 
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/gp/listpatients}]]";
+    }
+</script>
 
 </body>
 

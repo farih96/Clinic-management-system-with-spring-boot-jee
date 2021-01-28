@@ -21,4 +21,6 @@ public interface RdvRepository extends JpaRepository<Rdv, Long> {
 	
 	@Query("SELECT r FROM Rdv r WHERE r.rdvDate = ?1")
 	List<Rdv> findRdvByDate (Date rdv_date);
+	
+	List<Rdv> findRdvByPatientId (long patient_id);
 }

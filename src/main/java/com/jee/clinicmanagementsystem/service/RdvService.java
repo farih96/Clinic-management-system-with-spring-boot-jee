@@ -49,4 +49,9 @@ public class RdvService {
     public List<Rdv> getRdbByDateMed(Date rdvDate,Long medId) {
        return rdvRepository.getRdbByDateMed(rdvDate, medId);
     }
+    
+    public List<Rdv> findRdvByPatientId(long patientId) {
+        return rdvRepository.findRdvByPatientId(patientId);
+     	
+     }
 }
