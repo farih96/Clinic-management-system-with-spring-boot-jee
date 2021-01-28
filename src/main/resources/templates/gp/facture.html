@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
       >
 
 
@@ -109,7 +108,7 @@
                                             <tr th:each="scan : ${rdv.scans}">
                                                
                                                 <td th:text="${scan}"></td>
-                                                <td></td>
+                                                <td> scanners et analyses</td>
                                                <td class="price"><input onkeyup="priceinputchange.call(this)" type="number" step="0.01" name=""  style="border: 0;background-color: transparent"></td>
                                                 <td class="quantity"><input onkeyup="quantityinputchange.call(this)" type="number" value="" name="" style="border: 0;background-color: transparent"></td>
                                                 <td ><input class="total" type="number" style="border: 0;background-color: transparent" step="0.01" name=""></td>
@@ -130,8 +129,8 @@
                                                             
                                                             <tr onclick="calcultotal()">
                                                                 <th >Total à payer en DH:</th>
-                                                                <td class="text-right text-primary">
-                                                                    <h5 id="total-price"></h5>
+                                                                <td class="text-right text-primary" style='font-size:18px'>
+                                                                   <b> <h5 id="total-price"></h5></b>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

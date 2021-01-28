@@ -25,7 +25,16 @@
     <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
     <div class="page-wrapper">
          <div class="content">
-                
+         		<span th:switch="${rdv.status}">
+                <div  th:case="1" class="row" >
+                    <div class="col-sm-4 col-3">
+                       
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a th:href="${'../../gp/facture/'+rdv.id}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-book"></i>  Generer la facture</a>
+                    </div>
+                </div>
+                </span>
                 <div class="row">
                     <div class="col-md-6 m-auto">
                         <div class="card-box">
@@ -134,7 +143,7 @@
                     </div>
                  </div>
               <div class="m-t-20 text-center">
-                                <button type="button" id="terminer-btn" class="btn btn-primary submit-btn">
+                                <button onclick="history.back()"class="btn btn-primary submit-btn">
                                     <i class="fa fa-chevron-left"> </i> Retour</button>
                </div>
             

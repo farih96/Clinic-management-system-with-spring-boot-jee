@@ -54,11 +54,11 @@
 								</thead>
 								<tbody>
 								   <tr th:each="rdv : ${rdvs}" th:id="${rdv.id}">
-								     <td th:text="${rdv.gpId}"> </td>
+								     <td th:text="${rdv.patient.firstName + ' '+rdv.patient.lastName  }"> </td>
 								     <td th:text="${rdv.rdvDate}"> </td>
 								     <td th:text="${rdv.rdvTime}"> </td>
 								     <td th:switch="${rdv.status}">
-								         <span th:case="1"class="custom-badge status-red">Inactive</span>
+								         <span th:case="1"class="custom-badge status-red">Traité</span>
 								         <span th:case="0"class="custom-badge status-green">Active</span>
 								     </td>
 								   </tr>

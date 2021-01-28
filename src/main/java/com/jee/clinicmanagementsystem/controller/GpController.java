@@ -219,6 +219,14 @@ public class GpController {
     	
     }
     
+    @GetMapping("/deleterdv/{id}")
+    public String deleteRdv(@PathVariable("id") String rdvId,Model model) {
+    	loggedUser(model);
+    	rdvService.deleteRdv(Long.valueOf(rdvId));
+    	return "redirect:/gp/";
+    	
+    }
+    
     @GetMapping("/facture/{id}")
     public String factureRdv(@PathVariable("id") String rdvId,Model model) {
     	loggedUser(model);

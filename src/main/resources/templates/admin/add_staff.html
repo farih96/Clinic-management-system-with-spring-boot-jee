@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6" >
-                                <div class="form-group" >
+                                <div class="form-group" id="depar-id" >
                                     <label>Department</label>
 	                                    <select  class="select" th:field="*{departmentId}">
 	                                        	<option  th:value="'1'">cardiology</option>
@@ -118,7 +118,18 @@
 <script th:src="@{/js/select2.min.js}"></script>
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
-
+<script >
+$(document).ready(function () {
+	$('select[name="role"]').change(function(){
+			if($(this).val()!='MED'){
+				//hide departement
+				$('#depar-id').hide();
+			}else{
+				$('#depar-id').show();
+			}
+	})
+})
+</script>
 </body>
 
 
