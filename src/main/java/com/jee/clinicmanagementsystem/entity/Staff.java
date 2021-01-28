@@ -1,7 +1,14 @@
 package com.jee.clinicmanagementsystem.entity;
 
 
+
+
+import java.util.Set;
+
 import javax.persistence.*;
+
+
+
 
 @Entity
 public class Staff {
@@ -21,6 +28,11 @@ public class Staff {
     private String role;
     @Column(name = "department_id")
     private Long departmentId;
+    
+    
+    @OneToMany(mappedBy="doc",fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Rdv> rdvs;
     //add active;
 
    /* public Staff(Long id, String lastName, String firstName, Long matriculeNumber, String email, String password, String phoneNumber, String role, Long departmentId) {

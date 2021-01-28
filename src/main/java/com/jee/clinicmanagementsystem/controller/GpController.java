@@ -130,7 +130,8 @@ public class GpController {
 	    	if(check==0) {
 		    	Rdv rdvToSave = new Rdv();
 		    	rdvToSave.setGpId(Long.valueOf(request.getParameter("patientId")));
-		    	rdvToSave.setPatientId(Long.valueOf(request.getParameter("patientId")));
+		    	rdvToSave.setPatient(patientService.findPatientById(Long.valueOf(request.getParameter("patientId"))));
+		    	rdvToSave.setDoc(staffService.findStaffById(Long.valueOf(request.getParameter("docId"))));
 		    	rdvToSave.setMedId(Long.valueOf(request.getParameter("docId")));
 		    	
 		    	 String rdv_date = request.getParameter("date");
@@ -147,6 +148,7 @@ public class GpController {
 		    	  } 
 		    	rdvToSave.setRdvDate(rdvDate);
 		    	rdvToSave.setRdvTime(rdvTime);
+		    	//to remove (replaced with description on doc side)
 		    	rdvToSave.setMessage(request.getParameter("message"));
 		    	rdvService.saveRdv(rdvToSave);
 		    	map.put("added", "true");

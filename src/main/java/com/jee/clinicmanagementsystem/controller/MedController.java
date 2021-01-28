@@ -109,10 +109,14 @@ public class MedController {
     	
     }
     
+<<<<<<< HEAD
     
    
 
  	/*@RequestMapping("/listdoctors")
+=======
+ 	@RequestMapping("/listdoctors")
+>>>>>>> 284734e4cdf94027dc4b12a1ccb03ef16148db4b
     public String doctorsList(Model model) {
     	List<Staff> listDoctors= staffService.getAllDoctors();
     	model.addAttribute("listDoctors", listDoctors);
