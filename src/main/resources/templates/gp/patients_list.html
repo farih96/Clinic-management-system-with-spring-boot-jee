@@ -34,6 +34,17 @@
                         <a th:href="@{'addpatient/' }" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>
                     </div>
                 </div>
+             <div>&nbsp;</div>
+             <div>
+             	<form  th:object="${listPatients}">
+             		Fiilter :
+             		 <input type="text" name="keyword" th:value="${keyword}" required/>
+             		 &nbsp;
+             		 <input type="submit" value="Search" />
+             		 &nbsp;
+             		 <input type="button" value="Clear" />
+             	</form>
+             </div>    
          <table class="table table-border table-striped custom-table datatable mb-0" border="1">
 		    	<thead>
 		    		<tr>

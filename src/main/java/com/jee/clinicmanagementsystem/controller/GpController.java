@@ -19,6 +19,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -58,9 +59,10 @@ public class GpController {
     }
 ////////////////// PATIENT METHODS ///////////
     @RequestMapping("/listpatients")
-    public String patientsList(Model model) {
-    	List<Patient> listPatients = patientService.getAllPatients();
+    public String patientsList(Model model, @Param("keyword") String keyword) {
+    	List<Patient> listPatients = patientService.getAllPatients(keyword);
     	model.addAttribute("listPatients", listPatients);
+    	model.addAttribute("keyword", keyword);
     	loggedUser(model);
     	return"gp/patients_list";
     }
@@ -105,11 +107,11 @@ public class GpController {
     
     ////////////// RDV METHODS ///////////
     @GetMapping("/addrdv")
-    public String addRdvForm(Model model) {
+    public String addRdvForm(Model model, @Param("keyword") String keyword) {
     	loggedUser(model);
     	model.addAttribute("rdv", new Rdv());
     	// send all patient 
-    	List<Patient> patients = patientService.getAllPatients();
+    	List<Patient> patients = patientService.getAllPatients(keyword);
     	model.addAttribute("patients", patients);
     	// send departement and doctors
     	model.addAttribute("departments", departmentService.getAllDepartments());
@@ -177,7 +179,7 @@ public class GpController {
     }
    
     @GetMapping("/rdvs/{date}")
-    public String allRDV(@PathVariable("date") String date,Model model) {
+    public String allRDV(@PathVariable("date") String date,Model model, @Param("keyword") String keyword) {
     	loggedUser(model);
     	// get date 
 	    Date rdvsDate = null;
@@ -191,7 +193,7 @@ public class GpController {
     	// link it to thymleaf
 	    model.addAttribute("rdvs", rdvs);
 	    //get doctor and patient name
-	    model.addAttribute("patients", patientService.getAllPatients());
+	    model.addAttribute("patients", patientService.getAllPatients(keyword));
     	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/all-rdv";	
     	
