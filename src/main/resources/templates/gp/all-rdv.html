@@ -25,12 +25,20 @@
     <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
     <div class="page-wrapper">
         <div class="content">
+         <div class="row">
+                    <div class="col-sm-4 col-3">
+                       
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a href="../../gp/addrdv" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un RDV</a>
+                    </div>
+                </div>
         <div class="row">
                     <div class="col-sm-4 col-3">
                         <h4>Les Rendez-vous Du <span id="title-date"></span></h4>
                     </div>
                     <div class="col-sm-8 col-9 text-right m-b-20  float-right">
-                        <span class="btn btn-primary btn-rounded" id="dateminusone">  </span>
+                        <span class="btn btn-primary btn-rounded" id="dateminusone">< </span>
                         <span ><b id="navig-date"></b> </span>
                         <span class="btn btn-primary btn-rounded " id="dateplusone"> > </span>
                     </div>
@@ -53,7 +61,7 @@
 								
 									<tr  th:each="rdv : ${rdvs}" th:id="${rdv.id}">
 									     <td th:text="${rdv.patient.firstName+' '+rdv.patient.LastName}"> </td>
-									      <td th:text="${rdv.medId}"> </td>
+									      <td th:text="${rdv.doc.id}"> </td>
 									     <td th:text="${rdv.rdvDate}"> </td>
 									     <td th:text="${rdv.rdvTime}"> </td>
 									     <td th:switch="${rdv.status}">

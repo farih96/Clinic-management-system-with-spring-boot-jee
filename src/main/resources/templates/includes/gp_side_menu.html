@@ -4,15 +4,24 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="menu-title">Main</li>
-                <li class="active">
+                <li >
                     <a href="/gp/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                 </li>
-                <li>
-                    <a onclick='redirect()'><i class=" fa fa-calendar"></i> <span>tous les RDVs</span></a>
+                <hr>
+                 <li>
+                    <a href="../../gp/addrdv" ><i class=" fa fa-calendar-plus-o"></i> <span>Ajouter un RDV</span></a>
+                </li>
+                <li style="cursor:pointer;">
+                    <a onclick='redirect()'><i class=" fa fa-calendar"></i> <span>Consulter  les RDVs</span></a>
+                </li>
+                <hr>
+                 <li>
+                    <a href="/gp/addpatient"><i class="fa fa-user-plus"></i> <span>Ajouter un patient</span></a>
                 </li>
                 <li>
-                    <a href="/gp/listpatients"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                    <a href="/gp/listpatients"><i class="fa fa-wheelchair "></i> <span>Patients</span></a>
                 </li>
+                <hr>
                 <!--<li>
                     <a href="#"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                 </li>
