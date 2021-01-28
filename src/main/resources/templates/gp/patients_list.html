@@ -26,9 +26,36 @@
     <div th:replace="/includes/gp_side_menu :: gp_side_menu"> </div>
     <div class="page-wrapper">
         <div class="content">
-       
-        <h1>Patients list</h1>
-         <table border="1">
+         <div class="row">
+                    <div class="col-sm-4 col-3">
+                        <h1 class="page-title">Patients</h1>
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a th:href="@{'addpatient/' }" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>
+                    </div>
+                </div>
+             <div>&nbsp;</div>
+             <div>
+             	<form  th:object="${listPatients}">
+             	<div class="row filter-row">
+             		<div class="col-sm-6 col-md-3">
+             		<div class="form-group form-focus">
+                            <label class="focus-label">Enter first or last name</label>
+                            <input class="form-control floating" type="text" name="keyword" th:value="${keyword}" />
+                     </div>       
+                     </div>
+             		 &nbsp;
+             		 <div class="col-sm-6 col-md-3">
+             		 <input type="submit" value="Search" class="btn btn-success btn-block" />
+             		 </div> 
+             		
+             		<div class="col-sm-6 col-md-3">
+    					<input class="btn btn-success btn-block" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+             		 </div> 
+             		 </div>
+             	</form>
+             </div>    
+         <table class="table table-border table-striped custom-table datatable mb-0" border="1">
 		    	<thead>
 		    		<tr>
 		    			<th>Patient ID</th>
@@ -52,10 +79,18 @@
 		    			<td th:text= "${patient.Adress}"> </td>
 		    			<td th:text= "${patient.Sex}"> </td>
 		    			<td th:text= "${patient.DateOfBirth}"> </td>
-		    			<td > 
-		    				<a th:href="@{'deletepatient/' + ${patient.id}}">Delete</a>
-		    			</td>
-		    		
+		    			<td class="text-right">
+											<div class="dropdown dropdown-action">
+												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<a class="dropdown-item" th:href="@{'editpatient/' + ${patient.id}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+													<a class="dropdown-item"  th:href="@{'deletepatient/' + ${patient.id}}" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+													<a class="dropdown-item" th:href="@{'profilepatient/' + ${patient.id}}"><i class="fa fa-pencil m-r-5"></i> Profile</a>
+													
+												</div>
+											</div>
+										</td>
+		    			
 		    		</tr>
 		    	</tbody>
 		    
@@ -81,6 +116,11 @@
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
 
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/gp/listpatients}]]";
+    }
+</script>
 
 </body>
 

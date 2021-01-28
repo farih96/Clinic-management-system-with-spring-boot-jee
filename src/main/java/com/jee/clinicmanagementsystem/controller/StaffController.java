@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,6 +54,23 @@ public class StaffController {
         return "redirect:/";
 
     }
+    
+    @RequestMapping("/listdoctors")
+    public String doctorsList(Model model) {
+    	List<Staff> listDoctors= staffService.getAllDoctors();
+    	model.addAttribute("listDoctors", listDoctors);
+    	
+    	return"doctors_list";
+	}
+    
+    @RequestMapping("/docbydepartment/{id}")
+    public String doctorsBydepartmentList(@PathVariable("id") Long id,  Model model) {
+    	List<Staff>  listDoctorsbydepartment= staffService.findDocByDepartmentId(id);
+    	model.addAttribute("listDoctorsbydepartment", listDoctorsbydepartment);
+    	
+    	return"doctors_bydepartment";
+	}
+    
     
     
 /*

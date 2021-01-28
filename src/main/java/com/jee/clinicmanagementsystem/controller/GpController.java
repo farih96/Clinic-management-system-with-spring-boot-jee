@@ -4,6 +4,7 @@ package com.jee.clinicmanagementsystem.controller;
 import com.jee.clinicmanagementsystem.entity.Patient;
 import com.jee.clinicmanagementsystem.entity.Rdv;
 import com.jee.clinicmanagementsystem.entity.Staff;
+import com.jee.clinicmanagementsystem.service.DepartmentService;
 import com.jee.clinicmanagementsystem.service.PatientService;
 import com.jee.clinicmanagementsystem.service.RdvService;
 import com.jee.clinicmanagementsystem.service.StaffService;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,8 @@ public class GpController {
     @Autowired
     private StaffService staffService;
     @Autowired
+    private DepartmentService departmentService;
+    @Autowired
     private RdvService rdvService;
     
     public void loggedUser(Model model) {
@@ -55,13 +59,23 @@ public class GpController {
     }
 ////////////////// PATIENT METHODS ///////////
     @RequestMapping("/listpatients")
-    public String patientsList(Model model) {
-    	List<Patient> listPatients = patientService.getAllPatients();
+    public String patientsList(Model model, @Param("keyword") String keyword) {
+    	List<Patient> listPatients = patientService.getAllPatients(keyword);
     	model.addAttribute("listPatients", listPatients);
+    	model.addAttribute("keyword", keyword);
     	loggedUser(model);
     	return"gp/patients_list";
     }
     
+    @RequestMapping("/profilepatient/{id}")
+    public String findPatientById(@PathVariable("id") Long id,  Model model){
+    	Patient patientByid = patientService.findPatientById(id);
+    	List<Rdv> findRdvBypatientId = rdvService.findRdvByPatientId(id);
+    	model.addAttribute("patientByid", patientByid);
+    	model.addAttribute("findRdvBypatientId", findRdvBypatientId);
+    	loggedUser(model);
+    	return"gp/patient-profile";
+    }
 
     @GetMapping("/addpatient")
     public String addPatientForm(Model model) {
@@ -102,13 +116,15 @@ public class GpController {
     
     ////////////// RDV METHODS ///////////
     @GetMapping("/addrdv")
-    public String addRdvForm(Model model) {
+    public String addRdvForm(Model model, @Param("keyword") String keyword) {
     	loggedUser(model);
     	model.addAttribute("rdv", new Rdv());
     	// send all patient 
-    	List<Patient> patients = patientService.getAllPatients();
+    	List<Patient> patients = patientService.getAllPatients(keyword);
     	model.addAttribute("patients", patients);
     	// send departement and doctors
+    	model.addAttribute("departments", departmentService.getAllDepartments());
+    	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/add-rdv";	
     	
     }
@@ -174,7 +190,7 @@ public class GpController {
     }
    
     @GetMapping("/rdvs/{date}")
-    public String allRDV(@PathVariable("date") String date,Model model) {
+    public String allRDV(@PathVariable("date") String date,Model model, @Param("keyword") String keyword) {
     	loggedUser(model);
     	// get date 
 	    Date rdvsDate = null;
@@ -187,6 +203,9 @@ public class GpController {
     	 
     	// link it to thymleaf
 	    model.addAttribute("rdvs", rdvs);
+	    //get doctor and patient name
+	    model.addAttribute("patients", patientService.getAllPatients(keyword));
+    	model.addAttribute("staff", staffService.getAllDoctors());
          return "gp/all-rdv";	
     	
     }

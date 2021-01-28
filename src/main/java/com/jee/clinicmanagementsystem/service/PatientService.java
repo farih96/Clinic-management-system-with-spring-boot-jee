@@ -22,9 +22,19 @@ public class PatientService {
 	        return patientRepository.save(patient);
 	  }
 	 
-	 public List<Patient> getAllPatients() {
+	 public List<Patient> getAllPatients(String keyword) {
+		 if(keyword != null) {
+			 return patientRepository.search(keyword);
+		 }
 	        return patientRepository.findAll();
 	    }
+	 
+	/* public List<Patient>  searchPatients(String keyword) {
+		 if(keyword != null) {
+			 return patientRepository.search(keyword);
+		 }
+	        return patientRepository.findAll();
+	    }*/
 	 
 	 public Patient updatePatient(Patient patient) {
 	        Patient patientToUpdate =  patientRepository.findById(patient.getId()).orElse(null);

@@ -23,28 +23,7 @@ public class DoctorController {
 	 	private DepartmentService departmentService;
 	 	
 	 	
-	 	/* public void loggedUser(Model model) {
-	     	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	 	    String email = loggedInUser.getName(); 
-	 	    Staff staff = staffService.findStaffByEmail(email);
-	 	    model.addAttribute("staffinfo", staff);
-	     }
 
-	 	@RequestMapping("/listdoctors")
-	    public String doctorsList(Model model) {
-	    	List<Staff> listDoctors= staffService.getAllDoctors();
-	    	model.addAttribute("listDoctors", listDoctors);
-	    	loggedUser(model);
-	    	return"doctors_list";
-		}
-	 	
-	 	@RequestMapping("/docbydepartment/{id}")
-	    public String doctorsBydepartmentList(@PathVariable("id") Long id,  Model model) {
-	    	List<Staff>  listDoctorsbydepartment= staffService.findDocByDepartmentId(id);
-	    	model.addAttribute("listDoctorsbydepartment", listDoctorsbydepartment);
-	    	
-	    	return"doctors_bydepartment";
-		}*/
 
 	 	
 		

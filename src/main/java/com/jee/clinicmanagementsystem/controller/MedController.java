@@ -109,7 +109,8 @@ public class MedController {
     	
     }
     
- 	@RequestMapping("/listdoctors")
+
+ 	/*@RequestMapping("/listdoctors")
     public String doctorsList(Model model) {
     	List<Staff> listDoctors= staffService.getAllDoctors();
     	model.addAttribute("listDoctors", listDoctors);
@@ -123,7 +124,7 @@ public class MedController {
     	model.addAttribute("listDoctorsbydepartment", listDoctorsbydepartment);
     	
     	return"doctors_bydepartment";
-	}
+	}*/
     
     
 
