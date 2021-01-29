@@ -109,6 +109,7 @@ public class GpController {
     @RequestMapping("/deletepatient/{id}")
     public String deletePatient(@PathVariable("id") Long id) {
     	 patientService.deletepatient(id);
+    	 //rdvService.deleteByPatientId(id);
     	return "redirect:/gp/";
 
     }

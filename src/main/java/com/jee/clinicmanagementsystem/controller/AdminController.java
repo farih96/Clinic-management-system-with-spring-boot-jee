@@ -1,6 +1,10 @@
 package com.jee.clinicmanagementsystem.controller;
 
+import com.jee.clinicmanagementsystem.entity.Department;
+import com.jee.clinicmanagementsystem.entity.Patient;
 import com.jee.clinicmanagementsystem.entity.Staff;
+import com.jee.clinicmanagementsystem.service.DepartmentService;
+import com.jee.clinicmanagementsystem.service.RdvService;
 import com.jee.clinicmanagementsystem.service.StaffService;
 
 import java.util.List;
@@ -25,6 +29,10 @@ public class AdminController {
 
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private RdvService rdvService;
+    @Autowired
+    private DepartmentService departmentService;
     
     public void loggedUser(Model model) {
     	Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
@@ -54,8 +62,10 @@ public class AdminController {
     }
     @GetMapping("/addstaff")
     public String addStaffForm(Model model) {
-        model.addAttribute("staff", new Staff());
-        loggedUser(model);
+    	model.addAttribute("staff", new Staff());
+    	model.addAttribute("departments", departmentService.getAllDepartments());
+    	
+    	loggedUser(model);
         return "admin/add_staff";
     }
 
@@ -88,6 +98,7 @@ public class AdminController {
     @RequestMapping("/deletestaff/{id}")
     public String deleteStaff(@PathVariable("id") Long id) {
     	 staffService.deletestaff(id);
+    	 //rdvService.deleteByStaffId(id);
     	return "redirect:/admin/";
 
     }

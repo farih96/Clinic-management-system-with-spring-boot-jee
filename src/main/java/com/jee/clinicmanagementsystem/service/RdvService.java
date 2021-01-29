@@ -54,4 +54,14 @@ public class RdvService {
         return rdvRepository.findRdvByPatientId(patientId);
      	
      }
+
+	/*public void deleteByStaffId(Long id) {
+		rdvRepository.deleteByStaffId(id);
+		
+	}*/
+
+	/*public void deleteByPatientId(Long id) {
+		rdvRepository.deleteByPatientId(id);
+		
+	}*/
 }

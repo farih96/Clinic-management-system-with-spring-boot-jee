@@ -23,4 +23,9 @@ public interface RdvRepository extends JpaRepository<Rdv, Long> {
 	List<Rdv> findRdvByDate (Date rdv_date);
 	
 	List<Rdv> findRdvByPatientId (long patient_id);
+
+
+	//void deleteByStaffId(Long id);
+	
+	//void deleteByPatientId(Long id);
 }

@@ -83,19 +83,8 @@
                                 <div class="form-group" id="depar-id" >
                                     <label>Department</label>
 	                                    <select  class="select" th:field="*{departmentId}">
-	                                        	<option  th:value="'1'">cardiology</option>
-	                                        	<option  th:value="'2'">Gynecology</option>
-	                                        	<option  th:value="'3'">Anesthetics</option>
-	                                        	<option  th:value="'4'">Ear, nose and throat (ENT)</option>
-	                                        	<option  th:value="'5'">General surgery</option>
-	                                        	<option  th:value="'6'">Hematology</option>
-	                                        	<option  th:value="'7'">Neurology</option>
-	                                        	<option  th:value="'8'">Oncology</option>
-	                                        	<option  th:value="'9'">Ophtalmology</option>
-	                                        	<option  th:value="'10'">Orthopedics</option>
-	                                        	<option  th:value="'11'">Renal unit</option>
-	                                        	<option  th:value="'12'">Urology</option>
-	                                        	<option  th:value="'13'">GP</option>
+	                                    
+	                                        	<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.departmentName}"/>
 	                                    </select>
                                 </div>
                             </div>

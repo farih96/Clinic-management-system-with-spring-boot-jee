@@ -4,6 +4,7 @@ import com.jee.clinicmanagementsystem.entity.Department;
 import com.jee.clinicmanagementsystem.entity.Staff;
 import com.jee.clinicmanagementsystem.repository.DepartmentRepository;
 import com.jee.clinicmanagementsystem.repository.DoctorRepository;
+import com.jee.clinicmanagementsystem.repository.RdvRepository;
 import com.jee.clinicmanagementsystem.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +17,7 @@ public class StaffService {
     @Autowired
     private StaffRepository staffRepository;
     private DepartmentRepository departmentRepository;
-    
+    private RdvRepository rdvRepository;
   
 
     public Staff saveStaff(Staff staff) {
@@ -60,6 +61,7 @@ public class StaffService {
    
     public void deletestaff(Long id) {
     	staffRepository.deleteById(id);
+    	//rdvRepository.deleteByStaffId(id);
     	
     	   }
     
